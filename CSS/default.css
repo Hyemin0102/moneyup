@@ -1,0 +1,10 @@
+/* 폰트 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	font-display: swap;
+	src: local('Pretendard-Regular'), url('../fonts/Pretendard-Black.woff') format('woff');
+}
+
