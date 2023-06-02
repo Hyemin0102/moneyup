@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @font-face {
   font-family: 'Pretendard-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  src: 
+  url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff2'),
+  url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
+  crossorigin: anonymous; /* crossorigin 속성 추가 */
 }
 
 :root {
@@ -23,7 +26,7 @@ body {
 .header_inner ul {display: flex; padding-top: 40px;}
 .header_inner ul > li { flex:1; padding: 5px 0; text-align: center;}
 
-.header_inner ul > li > a {position: relative; color: #fff; display: inline-block; padding: 0 10px;}
+.header_inner ul > li > a {position: relative; color: #fff; display: inline-block; padding: 0 10px; font-weight: 600; letter-spacing: 1px}
 .header_inner ul > li > a:before{position: absolute; content: ""; bottom: -6px; left:0; width:0; height: 4px; background-color:#222222; transition: 0.3s ease-in-out; border-radius: 999px;}
 
 .header_inner ul > li.active > a:before{width:100%;}
