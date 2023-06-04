@@ -13,7 +13,7 @@ body {
 #container header {position:fixed;top: 0; background-color: var(--main-purple);max-width: 640px;min-width: 320px;height: 120px; width: 100%;border-radius: 0 0 40px 40px;}
 .header_inner {padding: 30px; height: 100%;}
 .header_inner h1 {text-align: center; font-size: 1.5rem; font-weight: bold; color:#fff; font-family: Inter;}
-.header_inner ul {display: flex; padding-top: 40px;}
+.header_inner ul {display: flex; padding-top: 30px;}
 .header_inner ul > li { flex:1; padding: 5px 0; text-align: center;}
 
 .header_inner ul > li > a {position: relative; color: #fff; display: inline-block; padding: 0 10px; font-weight: 600; letter-spacing: 1px}
@@ -44,7 +44,7 @@ main{padding-top: 120px;}
 
 
 
-.cal_days{display: flex; text-align: center;font-size: 1.3rem;font-weight: 600;}
+.cal_days{display: flex; text-align: center;font-size: 1.2rem;font-weight: 600;}
 .cal_day{width: calc(100% / 7);padding: 10px;}
 
 .cal_dates{display: flex; flex-wrap: wrap; text-align: center;font-size: 1.1rem;}
