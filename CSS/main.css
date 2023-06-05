@@ -55,7 +55,7 @@ main{padding-top: 120px;}
 .cal_date{position: relative; width:calc(100% / 7);padding: 10px;}
 
 .cal_date::before{position: absolute; top:50%; left:50%;width: 30px;
-  height: 30px;transform: translate(-50%, -50%); content:"";border-radius: 50% 0 0 50%;background-color:transparent; opacity: 0.3;}
+  height: 30px;transform: translate(-50%, -50%); content:"";border-radius: 50%;background-color:transparent; opacity: 0.3;}
 .cal_date.selected::before{background-color:#ef9073;}
 
 .cal_date .today{position: relative;}

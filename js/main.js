@@ -103,7 +103,7 @@ const createCalender = () => {
       let clickYear = year; //해당 date의 year
       const clickedDates = new Date(`${clickYear}-${clickMonth}-${clickDate}`);
       selectedDates.push(clickedDates);
-      console.log("selectedDates!!!!!", selectedDates);
+      //console.log("selectedDates!!!!!", selectedDates);
 
       if (selectedDates.length === 1) {
         //클릭한 값이 1개인 경우 스타일 추가
@@ -120,11 +120,17 @@ const createCalender = () => {
         }
 
         selectedDateAll.forEach((date) => {
-          //const day = date.getDate();
-          /*  const dates = document.querySelectorAll(
+          const day = date.getDate();
+          const dateSelected_last = document.querySelectorAll(
             ".cal_dates .cal_date span"
-          ); */
-          console.log("dd", dates);
+          );
+          console.log("dateSelected_last", dateSelected_last);
+
+          dateSelected_last.forEach((el) => {
+            if (parseInt(el.textContent) === day) {
+              el.parentElement.classList.add("selected");
+            }
+          });
         });
       } else if (selectedDates.length <= 3) {
         selectedDates = [];
@@ -132,20 +138,6 @@ const createCalender = () => {
       selectedDates.forEach((el) => {
         el.classList.add("selected");
       });
-
-      /*  if (selectedDates.length < 2) {
-        selectedDates.push(clickedDates); //클릭한 날짜 selectedDates에 넣고 그 사이의 날짜들 선택
-        if (selectedDates[0] < selectedDates[1]) {
-          //두번째 클릭한 날짜가 첫번째 클릭한 날짜보다 큰 경우
-          selectedperiod.push(selectedDates[0], selectedDates[1]);
-          console.log("selectedperiod");
-        } else {
-          //뒤에 선택한 날짜가 더 작은 경우
-          return;
-        }
-      } else {
-        selectedDates = [];
-      } */
     });
   });
 };
