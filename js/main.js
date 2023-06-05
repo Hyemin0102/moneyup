@@ -24,7 +24,7 @@ const createCalender = () => {
   const prevLast = new Date(year, month, 0);
   //지난달 마지막일(날짜에 0을 전달하면 마지막일이 나옴. month에는 현재 월 -1이기 때문에 이 전 달 마지막날 출력)
   const thisLast = new Date(year, month + 1, 0); //이번달 마지막일
-  
+
   const prevLastDate = prevLast.getDate(); //지난달 마지막날 날짜 반환
   const thisLastDate = thisLast.getDate(); //이번달 마지막날 날짜 반환
 
@@ -41,12 +41,14 @@ const createCalender = () => {
 
   const nextDates = [];
 
-  if (prevLastDay !== 6) { //6인 경우(토요일) 달력에 안나오면 되니까
-    for (let i = 0; i <= prevLastDay; i++) {//지난달마지막날의 인덱스만큼 i가 같거나 작은 경우
+  if (prevLastDay !== 6) {
+    //6인 경우(토요일) 달력에 안나오면 되니까
+    for (let i = 0; i <= prevLastDay; i++) {
+      //지난달마지막날의 인덱스만큼 i가 같거나 작은 경우
       prevDates.unshift(prevLastDate - i);
       //지난달 마지막 날짜에서 i 만큼씩 빼서 그 숫자를 배열 앞쪽에 할당
     }
-    }
+  }
   for (let i = 1; i < 7 - thisLastDay; i++) {
     //이번달 마지막날의 인덱스
     nextDates.push(i);
@@ -58,7 +60,7 @@ const createCalender = () => {
   const lastDateIndex = dates.lastIndexOf(thisLastDate); //thisLastDate가 몇번째 index에 있는지
 
   const calDates = document.querySelector(".cal_dates");
-  //calDates.innerHTML = "";
+  calDates.innerHTML = "";
 
   dates.forEach((el, index) => {
     let dateClass;
@@ -81,26 +83,25 @@ const createCalender = () => {
 };
 
 //이전달 달력 생성
-const prevMonth = () =>{
-  date.setMonth(date.getMonth()-1);
+const prevMonth = () => {
+  date.setMonth(date.getMonth() - 1);
   createCalender();
-}
+};
 
 //다음달 달력 생성
-const nextMonth= ()=>{
-  date.setMonth(date.getMonth()+1);
+const nextMonth = () => {
+  date.setMonth(date.getMonth() + 1);
   createCalender();
-}
-
+};
 
 const mainPlusBtn = document.querySelector(".main_plus_btn");
 const calendar = document.querySelector(".calendar_wrap");
-const prevBtn = document.querySelector('.cal_nav_btn.prev');
-const nextBtn = document.querySelector('.cal_nav_btn.next');
+const prevBtn = document.querySelector(".cal_nav_btn.prev");
+const nextBtn = document.querySelector(".cal_nav_btn.next");
 
 mainPlusBtn.addEventListener("click", () => {
   createCalender();
   calendar.classList.add("on");
 });
-prevBtn.addEventListener('click',()=>prevMonth());
-nextBtn.addEventListener('click',()=>nextMonth());
+prevBtn.addEventListener("click", () => prevMonth());
+nextBtn.addEventListener("click", () => nextMonth());
