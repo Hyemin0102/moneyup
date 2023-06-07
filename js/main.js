@@ -9,10 +9,107 @@ menuBtn.forEach((el) => {
   });
 });
 
-//달력 생성
+//달력생성
 let date = new Date();
 let selectedDates = []; //클릭한 날짜 저장할 배열
-let selectedperiod = []; //최종 선택 날짜 저장할 배열
+let selectedDateAll = []; //클릭한 날짜 전체 기간 담을 배열 생성
+
+const inputDate = document.querySelector("#challengeDate");
+
+//달력 구하는 함수
+const createCalender = () => {
+  const year = date.getFullYear();
+  const month = date.getMonth();
+
+  document.querySelector(".year_month").textContent = `${year}년 ${
+    month + 1
+  }월`;
+
+  const prevLast = new Date(year, month, 0);
+  const thisLast = new Date(year, month + 1, 0);
+
+  const prevLastDate = prevLast.getDate();
+  const thisLastDate = thisLast.getDate();
+
+  const prevLastDay = prevLast.getDay();
+  const thisLastDay = thisLast.getDay();
+
+  const prevDates = [];
+  const thisDates = [...Array(thisLastDate + 1).keys()].slice(1);
+  const nextDates = [];
+
+  if (prevLastDay !== 6) {
+    for (let i = 0; i <= prevLastDay; i++) {
+      prevDates.unshift("");
+    }
+  }
+  for (let i = 1; i < 7 - thisLastDay; i++) {
+    nextDates.push("");
+  }
+
+  const dates = prevDates.concat(thisDates, nextDates);
+
+  const firstDateIndex = dates.indexOf(1); //1일이 몇번째 index에 있는지
+  const lastDateIndex = dates.lastIndexOf(thisLastDate); //thisLastDate가 몇번째 index에 있는지
+
+  const calDates = document.querySelector(".cal_dates");
+  calDates.innerHTML = "";
+
+  dates.forEach((el, index) => {
+    let dateClass;
+    if (index >= firstDateIndex && index <= lastDateIndex) {
+      dateClass = "thismonth";
+    } else {
+      dateClass = "othermonth";
+    }
+
+    const dateElement = document.createElement("div"); //class이름 date인 div 생성
+    dateElement.className = "cal_date";
+    const spanElement = document.createElement("span"); //span생성
+    spanElement.className = dateClass;
+    spanElement.textContent = el; //각 dates 아이템 할당
+
+    dateElement.appendChild(spanElement);
+    calDates.appendChild(dateElement);
+  });
+  //오늘 날짜 구하기
+  let today = new Date();
+  if (month === today.getMonth() && year === today.getFullYear()) {
+    for (let date of document.querySelectorAll(".thismonth")) {
+      //console.log(typeof date.innerHTML); - string이라 숫자로 변경
+      if (Number(date.innerHTML) === today.getDate()) {
+        date.classList.add("today");
+      }
+    }
+  }
+  //클릭 이벤트
+  let calDateElement = document.querySelectorAll(".cal_date");
+  //console.log("11", calDateElement);
+  calDateElement.forEach((date) => {
+    date.addEventListener("click", (e) => {
+      let clickDate = e.target.textContent;
+      let clickMonth = month + 1; //해당 date의 month
+      let clickYear = year; //해당 date의 year
+      const clickedDates = new Date(`${clickYear},${clickMonth},${clickDate}`);
+      console.log(clickedDates);
+    });
+  });
+};
+
+/* calDateElement.addEventListener("click", (e) => {
+  let clickDate = e.target.textContent;
+  let clickMonth = month + 1; //해당 date의 month
+  let clickYear = year; //해당 date의 year
+  const clickedDates = new Date(`${clickYear},${clickMonth},${clickDate}`);
+}); */
+//console.log(clickedDates);
+
+/* //달력 생성
+let date = new Date();
+let selectedDates = []; //클릭한 날짜 저장할 배열
+let selectedDateAll = []; //클릭한 날짜 전체 기간 담을 배열 생성
+
+const inputDate = document.querySelector("#challengeDate");
 
 const createCalender = () => {
   const year = date.getFullYear();
@@ -46,14 +143,15 @@ const createCalender = () => {
     //6인 경우(토요일) 달력에 안나오면 되니까
     for (let i = 0; i <= prevLastDay; i++) {
       //지난달마지막날의 인덱스만큼 i가 같거나 작은 경우
-      prevDates.unshift(prevLastDate - i);
+      prevDates.unshift("");
       //지난달 마지막 날짜에서 i 만큼씩 빼서 그 숫자를 배열 앞쪽에 할당
     }
   }
   for (let i = 1; i < 7 - thisLastDay; i++) {
     //이번달 마지막날의 인덱스
-    nextDates.push(i);
+    nextDates.push("");
   }
+
   const dates = prevDates.concat(thisDates, nextDates); //prevDates배열에 thisDates,nextDates 추가
   //console.log(dates) //지난날짜+현재달+다음날짜 순서로 합쳐짐
 
@@ -81,6 +179,74 @@ const createCalender = () => {
     dateElement.appendChild(spanElement);
     calDates.appendChild(dateElement);
 
+    //클릭 이벤트
+    let calDateElement = document.querySelectorAll(".cal_date");
+    dateElement.addEventListener("click", (e) => {
+      let clickDate = e.target.textContent;
+      let clickMonth = month + 1; //해당 date의 month
+      let clickYear = year; //해당 date의 year
+      const clickedDates = new Date(`${clickYear},${clickMonth},${clickDate}`);
+      //console.log(clickedDates);
+
+      if (selectedDates.length < 2) {
+        selectedDates.push(clickedDates); //클릭한 날짜 selectedDates 배열에 담기
+        e.target.classList.add("selected");
+
+        let startDate = selectedDates[0];
+        let endDate = selectedDates[1];
+
+        //*****local storage에 배열값 넣고 그걸 꺼내서 class 추가
+        localStorage.setItem(
+          "selectedDates",
+          JSON.stringify(selectedDates.map((date) => date.toDateString())) //toDateString으로 날짜만 저장
+        );
+
+        calDateElement.forEach((dateEl) => {
+          let dateNumber = parseInt(dateEl.querySelector("span").textContent);
+          let currentDate = new Date(clickYear, clickMonth - 1, dateNumber); //현재 클릭한 날짜 세팅
+
+          let startDateTime = startDate.getTime();
+          let endDateTime = endDate.getTime();
+          let currentDateTime = currentDate.getTime();
+
+          if (
+            currentDateTime >= startDateTime &&
+            currentDateTime <= endDateTime
+          ) {
+          /*  let getDatesLocal =
+              JSON.parse(localStorage.getItem("selectedDates")) || [];
+            //console.log("getDatesLocal", getDatesLocal);
+
+            //**** getIte으로 가져온 값 input value로 넣기
+
+            let dateClassSelect = getDatesLocal.map((date) => {
+              //로컬에서 가져온 날짜를 배열로 저장
+              let getDate = new Date(date); //로컬에서 가져온 문자형식을 날짜형태로 변환
+              return getDate;
+            });
+
+            let start = dateClassSelect[0]; //날짜 형식의 0번째 인덱스 일자
+            let end = dateClassSelect[1]; //날짜 형식의 1번째 인덱스 일자 -> 두 인덱스 사이의 날짜 전체 출력
+            let currentDate = new Date(start);
+
+            while (currentDate <= end) {
+              let currnetDateNumber = currentDate.getDate(); //시작일의 날짜만 추출
+              if (parseInt(dateEl.textContent) === currnetDateNumber) {
+                //로컬에 저장된 날짜에 class 추가
+                dateEl.classList.add("selected");
+              }
+              currentDate.setDate(currentDate.getDate() + 1);
+            } 
+          }
+        });
+      } else if (selectedDates.length === 2) {
+        selectedDates = [];
+        calDateElement.forEach((dateEl) => {
+          dateEl.classList.remove("selected");
+        });
+      }
+    });
+
     //오늘 날짜 구하기
     let today = new Date();
     if (month === today.getMonth() && year === today.getFullYear()) {
@@ -91,58 +257,8 @@ const createCalender = () => {
         }
       }
     }
-
-    //클릭이벤트
-    dateElement.addEventListener("click", function (e) {
-      //전체 오브젝트 불러오기 1~31일 > 0~30 > 첫번째 클릭 index, 두번째 클릭 index
-      // [start, end] startIndex = min, endIndex = max, > 슬라이스
-      // map(()=>(style add))
-
-      let clickDate = e.target.textContent; //클릭한 타겟 숫자 추출
-      let clickMonth = month + 1; //해당 date의 month
-      let clickYear = year; //해당 date의 year
-      const clickedDates = new Date(`${clickYear}-${clickMonth}-${clickDate}`);
-      selectedDates.push(clickedDates);
-      //console.log("selectedDates!!!!!", selectedDates);
-
-      if (selectedDates.length === 1) {
-        //클릭한 값이 1개인 경우 스타일 추가
-        e.target.classList.add("selected");
-      } else if (selectedDates.length === 2) {
-        let startDate = selectedDates[0];
-        let endDate = selectedDates[1];
-        let selectedDateAll = []; //클릭한 날짜 전체 기간 담을 배열 생성
-
-        while (startDate <= endDate) {
-          //시작일부터 끝나는일까지 반복해서 배열에 push
-          selectedDateAll.push(new Date(startDate));
-          startDate.setDate(startDate.getDate() + 1);
-        }
-
-        selectedDateAll.forEach((date) => {
-          const day = date.getDate();
-          const dateSelected_last = document.querySelectorAll(
-            ".cal_dates .cal_date span"
-          );
-          console.log("dateSelected_last", dateSelected_last);
-
-          dateSelected_last.forEach((el) => {
-            if (parseInt(el.textContent) === day) {
-              el.parentElement.classList.add("selected");
-            }
-          });
-        });
-      } else if (selectedDates.length <= 3) {
-        selectedDates = [];
-      }
-      selectedDates.forEach((el) => {
-        el.classList.add("selected");
-      });
-    });
   });
-};
-
-createCalender();
+}; */
 
 //이전달 달력 생성
 const prevMonth = () => {
@@ -177,5 +293,13 @@ mainBox.addEventListener("click", () => {
 prevBtn.addEventListener("click", () => prevMonth());
 nextBtn.addEventListener("click", () => nextMonth());
 
-//생성한 달력 클릭 시 변수에 담기
-let selectedDate;
+//챌린지 금액 입력, 3자리 수 콤마
+const addComma = () => {
+  const input = document.getElementById("number");
+  let value = input.value;
+  value = value.replace(/,/g, "");
+  value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  input.value = value;
+};
+
+document.getElementById("number").addEventListener("input", addComma);
