@@ -18,7 +18,7 @@
         <div class="header_inner">
           <h1>MOTD</h1>
           <ul class="menu">
-            <li class="active"><a href="#">챌린지</a></li>
+            <li class="activ"><a href="#">챌린지</a></li>
             <li><a href="#">관리</a></li>
             <li><a href="#">달력</a></li>
             <li><a href="#">설정</a></li>
@@ -74,12 +74,18 @@
               <p>도전할 금액을 입력해 주세요</p>
             </div>
             <div class="challenge_box">
-                <input type="text" id="challengeDate" placeholder="기간">
-                <input type="text" id="number" placeholder="금액">
+              <div class="challenge_box_inner">
+                <span>기간</span>
+                <input type="text" id="challengeDate">
+              </div>
+              <div class="challenge_box_inner">
+                <span>예산</span>
+                <input type="text" id="number">
+                <span>원</span>
+              </div>
             </div>
             <div class="challenge_btn btn">확인</div>
           </div>
-
         </div>
       </main>
       <footer></footer>

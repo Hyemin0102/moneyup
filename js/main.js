@@ -2,12 +2,28 @@
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");
 menuBtn.forEach((el) => {
   el.addEventListener("click", function () {
+    console.log("클릭");
     menuBtn.forEach((item) => {
       item.classList.remove("active");
     });
-    this.classList.add("active");
+    el.classList.add("active");
   });
 });
+//로컬스토리지 저장
+const localSetItem = (dates) => {
+  localStorage.setItem(
+    "selectedDates",
+    JSON.stringify(dates.map((date) => date.toDateString())) //toDateString으로 날짜만 저장
+  );
+};
+
+//로컬스토리지 불러오는 함수
+const localGetItem = () => {
+  const savedSelectedDates = localStorage.getItem("selectedDates");
+  return savedSelectedDates
+    ? JSON.parse(savedSelectedDates).map((date) => date)
+    : [];
+};
 
 //달력생성
 let date = new Date();
@@ -96,41 +112,43 @@ const createCalender = () => {
       if (selectedDates.length < 2) {
         selectedDates.push(clickedDates); //클릭한 날짜 selectedDates 배열에 담기
         e.target.classList.add("selected");
-        localSetItem(selectedDates);//로컬스토리지 저장
+        localSetItem(selectedDates); //로컬스토리지 저장
+        const savedSelectedDates = localGetItem();
+        const formattedDate = savedSelectedDates.map((dateString) => {
+          let formatDate = new Date(dateString);
+          let formatYear = formatDate.getFullYear();
+          let formatMonth = formatDate.getMonth() + 1;
+          let formatDay = formatDate.getDate();
+          return `${formatYear}.${
+            formatMonth < 10 ? "0" + formatMonth : formatMonth
+          }.${formatDay < 10 ? "0" + formatDay : formatDay}`;
+        });
+        console.log("formattedDate", formattedDate);
+        let challengeStart = formattedDate[0];
+        let challengeEnd = formattedDate[1];
+        const challengeDate = document.getElementById("challengeDate");
+        challengeDate.value = `${challengeStart} ~ ${challengeEnd}`;
 
         const startDate = new Date(selectedDates[0]);
         const endDate = new Date(selectedDates[1]);
         //const currentDate = new Date(startDate);
 
-        if(startDate<endDate){ //시작일이 더 이른 경우
-          console.log('savedSelectedDates',savedSelectedDates)
-        } else if(endDate<startDate) { //시작일이 더 느린 경우
+        if (startDate < endDate) {
+          //시작일이 더 이른 경우
+          console.log("savedSelectedDates", savedSelectedDates);
+        } else if (endDate < startDate) {
+          //시작일이 더 느린 경우
           calDateElement.forEach((date) => {
             date.classList.remove("selected");
           });
-          alert('시작일을 더 빠르게 다시 선택해주세요!');
+          alert("시작일을 더 빠르게 다시 선택해주세요!");
           selectedDates = [];
-          console.log('selectedDates',selectedDates)
+          console.log("selectedDates", selectedDates);
         }
       }
     });
   });
 };
-
-//로컬스토리지 저장
-const localSetItem = (dates) =>{
-  localStorage.setItem(
-    "selectedDates",
-    JSON.stringify(dates.map((date) => date.toDateString())) //toDateString으로 날짜만 저장
-  );
-}
-
-//로컬스토리지 불러옴
-const localGetItem = () => {
-  const savedSelectedDates = localStorage.getItem("selectedDates");
-  return savedSelectedDates ? JSON.parse(savedSelectedDates).map((date) => date) : [];
-};
-
 
 //이전달 달력 생성
 const prevMonth = () => {
@@ -150,12 +168,6 @@ const prevBtn = document.querySelector(".cal_nav_btn.prev");
 const nextBtn = document.querySelector(".cal_nav_btn.next");
 const mainBox = document.querySelector(".main_box");
 
-mainPlusBtn.addEventListener("click", (e) => {
-  e.stopPropagation(); //없으면 상위요소(mainBox)까지 이벤트 전달되어 클릭 안되므로 추가
-  createCalender();
-  calendar.classList.add("on");
-});
-
 mainBox.addEventListener("click", () => {
   if (calendar.classList.contains("on")) {
     calendar.classList.remove("on");
@@ -165,6 +177,12 @@ mainBox.addEventListener("click", () => {
 prevBtn.addEventListener("click", () => prevMonth());
 nextBtn.addEventListener("click", () => nextMonth());
 
+const calBtn = document.querySelector(".cal_btn");
+const challengeCont = document.querySelector(".challenge_cont");
+calBtn.addEventListener("click", () => {
+  challengeCont.classList.add("on");
+});
+
 //챌린지 금액 입력, 3자리 수 콤마
 const addComma = () => {
   const input = document.getElementById("number");
@@ -173,28 +191,13 @@ const addComma = () => {
   value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   input.value = value;
 };
-
-const savedSelectedDates = localGetItem();
-const formattedDate = savedSelectedDates.map((dateString)=>{
-  let formatDate = new Date(dateString);
-  let formatYear = formatDate.getFullYear();
-  let formatMonth = formatDate.getMonth() +1;
-  let formatDay = formatDate.getDate();
-  return `${formatYear}.${formatMonth < 10 ? '0' + formatMonth : formatMonth}.${formatDay <10 ? '0'+ formatDay : formatDay}`;
-})
-console.log('formattedDate',formattedDate);
-let challengeStart = formattedDate[0];
-let challengeEnd = formattedDate[1];
-const challengeDate = document.getElementById("challengeDate");
-challengeDate.value = `${challengeStart} ~ ${challengeEnd}`;
-
-
-
 document.getElementById("number").addEventListener("input", addComma);
 
-
-
-
+mainPlusBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); //없으면 상위요소(mainBox)까지 이벤트 전달되어 클릭 안되므로 추가
+  createCalender();
+  calendar.classList.add("on");
+});
 
 /* calDateElement.addEventListener("click", (e) => {
   let clickDate = e.target.textContent;
@@ -359,5 +362,3 @@ const createCalender = () => {
     }
   });
 }; */
-
-
