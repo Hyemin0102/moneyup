@@ -114,9 +114,10 @@ main{padding-top: 120px; position: relative;}
  .inp:focus { outline: none; background-color: #eee; }
 
  .date_inner {display: flex; flex-direction: column;}
- .date_inner > div{box-shadow: var(--main-box); }
- .startdate > input {margin: auto; border: none; outline:none; width:100%; height:70%; text-align: center;}
- .datepicker.hasDatepicker {text-align: center; outline:none; width:100%; font-size: 1.1rem; font-family: "pretendard";}
+
+
+ .datepicker.hasDatepicker {display:block; text-align: center; outline:none;width: 280px; height: 50px; font-size: 1.1rem; font-family: "pretendard"; border: none;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto;}
+
 
 
 
@@ -162,7 +163,7 @@ main{padding-top: 120px; position: relative;}
 .cal_day:nth-child(7n + 1),
 .cal_date:nth-child(7n + 1) {color:#F2663B}
 
-.cal_btn,.challenge_btn{width: 100px; height: 40px; margin: 20px auto;line-height: 40px;}
+.cal_btn,.challenge_date_btn{width: 100px; height: 40px; margin: 20px auto;line-height: 40px;}
 
 .challenge_cont{position: absolute; width: 0; height: 100%; overflow: hidden; top: 170px;left: 0; background: #fff; transition: all 0.3s ease-out; }
   .challenge_cont.on{width: 100%; overflow: auto;}
@@ -170,11 +171,11 @@ main{padding-top: 120px; position: relative;}
 .challenge_inner {display: flex;flex-direction: column;align-items: center;text-align: center;gap: 20px;}
 .challenge_txt{font-weight: bold; font-size: 20px;padding-top: 20px;line-height: 24px;}
 
-.challenge_box_inner, .date_inner > div{width: 280px; height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto; display: flex; justify-content: space-around; align-items: center; padding: 0 10px;}
+.challenge_box_inner{width: 280px; height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto; display: flex; justify-content: space-around; align-items: center; padding: 0 10px;}
 .challenge_box input {outline: none; font-family: 'Pretendard'; font-weight: 700; border: none; text-align: center; width: 80%; font-size: 1rem;}
 .challenge_box_inner > span:nth-child(1){width:20%;opacity: 0.6;font-size: 0.9rem; text-align: left;}
 
-.challenge_btn {}
+
 
 
 

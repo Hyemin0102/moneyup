@@ -1,3 +1,33 @@
+let hh;
+let jj;
+$("#aa").datepicker({
+  onSelect: function (dateString) {
+    console.log(dateString);
+    hh = dateString;
+  },
+});
+
+$("#bb").datepicker({
+  onSelect: function (dateString) {
+    console.log(dateString);
+    jj = dateString;
+  },
+});
+
+$(".challenge_date_btn").click((e) => {
+  e.preventDefault();
+
+  let startDate = $(".start_date").datepicker("getDate");
+  let endDate = $(".end_date").datepicker("getDate");
+
+  localStorage.setItem("startDate", startDate);
+  localStorage.setItem("endDate", endDate);
+
+  $(".datepicker").val("");
+
+  //금액 설정하는거 나오게
+});
+
 $.datepicker.setDefaults({
   dateFormat: "yy-mm-dd",
   prevText: "이전 달",
@@ -36,11 +66,6 @@ $.datepicker.setDefaults({
   showMonthAfterYear: true,
   yearSuffix: "년",
 });
-
-$(function () {
-  $(".datepicker").datepicker();
-});
-
 //메뉴 클릭
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");
 menuBtn.forEach((el) => {
@@ -52,7 +77,8 @@ menuBtn.forEach((el) => {
     el.classList.add("active");
   });
 });
-//로컬스토리지 저장
+
+/* //로컬스토리지 저장
 const localSetItem = (dates) => {
   localStorage.setItem(
     "selectedDates",
@@ -169,7 +195,7 @@ const createCalender = () => {
         //console.log("formattedDate", formattedDate);
         console.log("222", selectedDates);
         /* let challengeStart = selectedDates[0];
-        let challengeEnd = selectedDates[1]; */
+        let challengeEnd = selectedDates[1]; 
         const challengeDate = document.getElementById("challengeDate");
         challengeDate.value = `${selectedDates[0]} ~ ${selectedDates[1]}`;
         //console.log("dddd", Number(challengeStart));
@@ -243,7 +269,7 @@ mainPlusBtn.addEventListener("click", (e) => {
   createCalender();
   calendar.classList.add("on");
 });
-
+ 
 /* calDateElement.addEventListener("click", (e) => {
   let clickDate = e.target.textContent;
   let clickMonth = month + 1; //해당 date의 month
