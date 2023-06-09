@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="CSS/default.css" />
     <link rel="stylesheet" href="CSS/main.css" />
 
+    <!-- datepicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script src="js/prefixfree.min.js"></script>
     <script defer src="js/main.js"></script>
   </head>
@@ -39,7 +44,20 @@
                 <button class="main_plus_btn btn">챌린지 추가</button>
               </div>
             </div>
-            <div class="calendar_wrap">
+          </div>
+          <div class="challenge_date">
+            <div class="date_inner">
+              <div class="startdate">
+                <input id="datepicker" type="date" placeholder="시작일">
+              </div>
+              <div class="startdate">
+                <input id="datepicker" type="date">
+              </div>
+              <button class="challenge_btn btn">확인</button>
+            </div>
+          </div>
+           
+           <!--  <div class="calendar_wrap">
               <div class="calendar">
                 <div class="cal_header">
                   <div class="cal_nav">
@@ -66,7 +84,7 @@
                   확인
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="challenge_cont">

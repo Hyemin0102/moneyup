@@ -1,3 +1,46 @@
+$.datepicker.setDefaults({
+  dateFormat: "yy-mm-dd",
+  prevText: "이전 달",
+  nextText: "다음 달",
+  monthNames: [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ],
+  monthNamesShort: [
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월",
+  ],
+  dayNames: ["일", "월", "화", "수", "목", "금", "토"],
+  dayNamesShort: ["일", "월", "화", "수", "목", "금", "토"],
+  dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+  showMonthAfterYear: true,
+  yearSuffix: "년",
+});
+
+$(function () {
+  $(".datepicker").datepicker();
+});
+
 //메뉴 클릭
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");
 menuBtn.forEach((el) => {
@@ -115,8 +158,6 @@ const createCalender = () => {
         e.target.classList.add("selected");
         localSetItem(selectedDates); //로컬스토리지 저장
         const savedSelectedDates = localGetItem(); //로컬스토리지 불러와서 변수 할당
-        console.log("savedSelectedDates???", savedSelectedDates);
-
         const formattedDate = savedSelectedDates.map((dateString) => {
           let formatDate = new Date(dateString);
           let formatYear = formatDate.getFullYear();
@@ -126,11 +167,11 @@ const createCalender = () => {
           //formatYear,formatMonth,formatDay 숫자
         });
         //console.log("formattedDate", formattedDate);
-
-        let challengeStart = formattedDate[0];
-        let challengeEnd = formattedDate[1];
+        console.log("222", selectedDates);
+        /* let challengeStart = selectedDates[0];
+        let challengeEnd = selectedDates[1]; */
         const challengeDate = document.getElementById("challengeDate");
-        challengeDate.value = `${challengeStart} ~ ${challengeEnd}`;
+        challengeDate.value = `${selectedDates[0]} ~ ${selectedDates[1]}`;
         //console.log("dddd", Number(challengeStart));
 
         const startDate = new Date(selectedDates[0]);
