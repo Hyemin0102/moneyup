@@ -38,7 +38,9 @@ $.datepicker.setDefaults({
 });
 
 $(function () {
-  $(".datepicker").datepicker();
+  $(".datepicker").datepicker({
+    duration: "fast",
+  });
 });
 
 //메뉴 클릭
