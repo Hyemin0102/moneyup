@@ -1,33 +1,34 @@
-let hh;
-let jj;
-$("#aa").datepicker({
+let startDate;
+let endDate;
+$("#datepicker_start").datepicker({
   onSelect: function (dateString) {
     console.log(dateString);
-    hh = dateString;
+    startDate = dateString;
   },
 });
 
-$("#bb").datepicker({
+$("#datepicker_end").datepicker({
   onSelect: function (dateString) {
     console.log(dateString);
-    jj = dateString;
+    endDate = dateString;
   },
 });
 
 $(".challenge_date_btn").click((e) => {
   e.preventDefault();
 
-  let startDate = $(".start_date").datepicker("getDate");
+ /*  let startDate = $(".start_date").datepicker("getDate");
   let endDate = $(".end_date").datepicker("getDate");
 
   localStorage.setItem("startDate", startDate);
   localStorage.setItem("endDate", endDate);
 
-  $(".datepicker").val("");
+  $(".datepicker").val(""); */
 
   //금액 설정하는거 나오게
 });
 
+//datepicker 기본 세팅 
 $.datepicker.setDefaults({
   dateFormat: "yy-mm-dd",
   prevText: "이전 달",
