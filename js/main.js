@@ -20,6 +20,7 @@ const localSetItem = (dates) => {
 //로컬스토리지 불러오는 함수
 const localGetItem = () => {
   const savedSelectedDates = localStorage.getItem("selectedDates");
+  //console.log(typeof savedSelectedDates);문자열
   return savedSelectedDates
     ? JSON.parse(savedSelectedDates).map((date) => date)
     : [];
@@ -113,21 +114,26 @@ const createCalender = () => {
         selectedDates.push(clickedDates); //클릭한 날짜 selectedDates 배열에 담기
         e.target.classList.add("selected");
         localSetItem(selectedDates); //로컬스토리지 저장
-        const savedSelectedDates = localGetItem();
+        const savedSelectedDates = localGetItem(); //로컬스토리지 불러와서 변수 할당
+        console.log("savedSelectedDates타입?", typeof savedSelectedDates);
+
         const formattedDate = savedSelectedDates.map((dateString) => {
-          let formatDate = new Date(dateString);
+          let formatDate = new Date(dateString.replace(/-/g, "/"));
+
           let formatYear = formatDate.getFullYear();
           let formatMonth = formatDate.getMonth() + 1;
           let formatDay = formatDate.getDate();
+          //formatYear,formatMonth,formatDay 숫자
           return `${formatYear}.${
             formatMonth < 10 ? "0" + formatMonth : formatMonth
           }.${formatDay < 10 ? "0" + formatDay : formatDay}`;
         });
-        console.log("formattedDate", formattedDate);
+
         let challengeStart = formattedDate[0];
         let challengeEnd = formattedDate[1];
         const challengeDate = document.getElementById("challengeDate");
         challengeDate.value = `${challengeStart} ~ ${challengeEnd}`;
+        //console.log("dddd", Number(challengeStart));
 
         const startDate = new Date(selectedDates[0]);
         const endDate = new Date(selectedDates[1]);
