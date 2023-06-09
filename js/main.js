@@ -115,19 +115,17 @@ const createCalender = () => {
         e.target.classList.add("selected");
         localSetItem(selectedDates); //로컬스토리지 저장
         const savedSelectedDates = localGetItem(); //로컬스토리지 불러와서 변수 할당
-        console.log("savedSelectedDates타입?", typeof savedSelectedDates);
+        console.log("savedSelectedDates???", savedSelectedDates);
 
         const formattedDate = savedSelectedDates.map((dateString) => {
-          let formatDate = new Date(dateString.replace(/-/g, "/"));
-
+          let formatDate = new Date(dateString);
           let formatYear = formatDate.getFullYear();
-          let formatMonth = formatDate.getMonth() + 1;
-          let formatDay = formatDate.getDate();
+          let formatMonth = String(formatDate.getMonth() + 1).padStart(2, "0");
+          let formatDay = String(formatDate.getDate()).padStart(2, "0");
+          return `${formatYear}-${formatMonth}-${formatDay}`;
           //formatYear,formatMonth,formatDay 숫자
-          return `${formatYear}.${
-            formatMonth < 10 ? "0" + formatMonth : formatMonth
-          }.${formatDay < 10 ? "0" + formatDay : formatDay}`;
         });
+        //console.log("formattedDate", formattedDate);
 
         let challengeStart = formattedDate[0];
         let challengeEnd = formattedDate[1];
