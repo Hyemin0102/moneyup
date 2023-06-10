@@ -1,5 +1,6 @@
 let startDate;
 let endDate;
+
 $("#datepicker_start").datepicker({
   dateOptions:{
     debug:true,
@@ -16,20 +17,6 @@ $("#datepicker_end").datepicker({
     console.log(dateString);
     endDate = dateString;
   },
-});
-
-$(".challenge_date_btn").click((e) => {
-  e.preventDefault();
-
- /*  let startDate = $(".start_date").datepicker("getDate");
-  let endDate = $(".end_date").datepicker("getDate");
-
-  localStorage.setItem("startDate", startDate);
-  localStorage.setItem("endDate", endDate);
-
-  $(".datepicker").val(""); */
-
-  //금액 설정하는거 나오게
 });
 
 //datepicker 기본 세팅 
@@ -71,6 +58,35 @@ $.datepicker.setDefaults({
   showMonthAfterYear: true,
   yearSuffix: "년",
 });
+
+const plusBtn = document.querySelector('.main_plus_btn');
+const dateBtn = document.querySelector('.challenge_date_btn');
+const challengeDate = document.querySelector('.challenge_date');
+const callengeCont = document.querySelector('.challenge_cont');
+
+plusBtn.addEventListener('click',()=>{
+  challengeDate.classList.add('calendar_on');
+})
+
+
+dateBtn.addEventListener('click',(e) => {
+  e.preventDefault();
+  callengeCont.classList.add('price_on');
+  document.getElementById('challengeDate').value = `${startDate} ~ ${endDate} `
+});
+
+//챌린지 금액 입력, 3자리 수 콤마
+const addComma = () => {
+  const input = document.getElementById("number");
+  let value = input.value;
+  value = value.replace(/,/g, "");
+  value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  input.value = value;
+};
+document.getElementById("number").addEventListener("input", addComma);
+
+
+
 
 //메뉴 클릭
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");

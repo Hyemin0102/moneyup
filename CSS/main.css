@@ -36,8 +36,9 @@ main{padding-top: 120px; position: relative;}
 
 .main_plus_btn{width: 180px; height: 40px;}
 
-.challenge_date{ position:absolute; width:100%; top:0; left:0; height:100%; background-color: #fff; display: flex;justify-content: center;align-items: center;}
-.date_inner {}
+.challenge_date{ position:absolute; width:0; overflow: hidden; top:0; left:0; height:100%; background-color: #fff; display: flex;justify-content: center;align-items: center;transition: all 0.3s;}
+.challenge_date.calendar_on {width:100%; overflow: auto;}
+
 .date_inner div { width: 280px;height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1);border-radius: 10px;margin: 0 auto 40px;box-sizing: border-box;cursor: pointer;display: flex;align-items: center;justify-content: center;}
 .date_inner input {position:relative; text-align: center;font-size: 1.1rem;font-family: "pretendard";border: none;border-radius: 10px;height: 100%;width: 100%;outline:none;background-color: transparent;
 }
@@ -169,17 +170,19 @@ main{padding-top: 120px; position: relative;}
 .cal_day:nth-child(7n + 1),
 .cal_date:nth-child(7n + 1) {color:#F2663B}
 
-.cal_btn,.challenge_date_btn{width: 100px; height: 40px; margin: 20px auto;line-height: 40px;}
+.cal_btn,.challenge_date_btn, .challenge_price_btn{width: 100px; height: 40px; margin: 20px auto;line-height: 40px;}
 
-.challenge_cont{position: absolute; width: 0; height: 100%; overflow: hidden; top: 170px;left: 0; background: #fff; transition: all 0.3s ease-out; }
-  .challenge_cont.on{width: 100%; overflow: auto;}
+.challenge_cont{position: absolute; width: 0; height: 100%; overflow: hidden; top: 170px;left: 0; background: #fff; transition: all 0.3s;}
+.challenge_cont.price_on{width:100%; overflow: auto;}
 
 .challenge_inner {display: flex;flex-direction: column;align-items: center;text-align: center;gap: 20px;}
 .challenge_txt{font-weight: bold; font-size: 20px;padding-top: 20px;line-height: 24px;}
 
 .challenge_box_inner{width: 280px; height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto; display: flex; justify-content: space-around; align-items: center; padding: 0 10px;}
-.challenge_box input {outline: none; font-family: 'Pretendard'; font-weight: 700; border: none; text-align: center; width: 80%; font-size: 1rem;}
-.challenge_box_inner > span:nth-child(1){width:20%;opacity: 0.6;font-size: 0.9rem; text-align: left;}
+
+.challenge_box input {outline: none; font-family: 'Pretendard'; font-weight: 700; border: none; text-align: center; width: 85%; font-size: 1rem;}
+.challenge_box_inner > span:nth-child(1){width:15%;opacity: 0.6;font-size: 0.9rem;}
+
 
 
 
