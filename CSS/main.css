@@ -113,8 +113,28 @@ main{padding-top: 120px; position: relative;}
   .inp:focus { outline: none; background-color: #eee; } */
 
   .date_inner {display: flex; flex-direction: column;}
-  .date_inner input {display:block; width: 280px; height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto; border: none; text-align: center;font-size: 1.1rem; font-family: "pretendard"; box-sizing: border-box;cursor: pointer; }
-  .date_inner input:focus {outline:none; box-shadow: inset 0px 4px 4px rgba(211, 225, 252,0.8), 1px 1px 5px 3px rgba(211, 225, 252, 0.8);caret-color: transparent;}
+  .date_inner div { width: 280px;
+    height: 50px;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin: 20px auto;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;}
+  .date_inner input {    text-align: center;
+    font-size: 1.1rem;
+    font-family: "pretendard";
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    outline:none;
+    background-color: transparent;}
+  .date_inner input:focus { box-shadow: inset 0px 4px 4px rgba(211, 225, 252,0.8), 1px 1px 5px 3px rgba(211, 225, 252, 0.8);caret-color: transparent;}
 
 /*datepicker - end*/
 
