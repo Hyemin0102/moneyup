@@ -12,6 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="js/prefixfree.min.js"></script>
+    <script defer src="js/common.js"></script>
     <script defer src="js/main.js"></script>
   </head>
   <body>
@@ -20,9 +21,9 @@
         <div class="header_inner">
           <h1>MOTD</h1>
           <ul class="menu">
-            <li class="active"><a href="#">챌린지</a></li>
+            <li class="active"><a href="./index.html">챌린지</a></li>
             <li><a href="#">관리</a></li>
-            <li><a href="#">달력</a></li>
+            <li><a href="./calendar.html">달력</a></li>
             <li><a href="#">설정</a></li>
           </ul>
         </div>
@@ -31,6 +32,7 @@
         <div class="main_wrap">
           <div class="main_inner">
             <h2>나의 챌린지</h2>
+            <!-- 챌린지 없는 경우 main_box -->
             <div class="main_box">
               <div class="main_box_inner">
                 <p>진행 중인 챌린지가 없습니다.</p>
@@ -41,7 +43,24 @@
                 <button class="main_plus_btn btn">챌린지 추가</button>
               </div>
             </div>
+            <!-- 챌린지 있는 경우 main_challenge -->
+            <div class="main_challenge">
+              <div class="challenge_wrap">
+                <div class="challenge_info"></div>
+                <div class="challenge_detail">
+                  <div class="detail_inner">
+                    <div class="circle">
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="challenge_plus_btn btn">챌린지 추가</div>
+              </div>
+            </div>
           </div>
+
+
+          <!-- 챌린지 기간 추가 -->
           <div class="challenge_date">
             <div class="date_inner">
               <form>
@@ -56,55 +75,29 @@
               </form>
             </div>
           </div>
-          <!--  <div class="calendar_wrap">
-              <div class="calendar">
-                <div class="cal_header">
-                  <div class="cal_nav">
-                    <button class="cal_nav_btn prev"></button>
-                    <span class="year_month"></span>
-                    <button class="cal_nav_btn next"></button>
-                  </div>
-                  <div class="cal_main">
-                    <div class="cal_days">
-                      <div class="cal_day">일</div>
-                      <div class="cal_day">월</div>
-                      <div class="cal_day">화</div>
-                      <div class="cal_day">수</div>
-                      <div class="cal_day">목</div>
-                      <div class="cal_day">금</div>
-                      <div class="cal_day">토</div>
-                    </div>
-                    <div class="cal_dates">
-                    </div>
-                  
-                  </div>
+        
+          <!-- 챌린지 금액 추가 -->
+          <div class="challenge_price">
+            <div class="price_inner">
+              <div class="price_txt">
+                <p>선택 기간동안</p>
+                <p>도전할 금액을 입력해 주세요</p>
+              </div>
+              <div class="price_box">
+                <div class="price_box_inner">
+                  <span>기간</span>
+                  <input type="text" id="challengeDate">
                 </div>
-                <div class="cal_btn btn">
-                  확인
+                <div class="price_box_inner">
+                  <span>예산</span>
+                  <input type="text" id="number">
+                  <span>원</span>
                 </div>
               </div>
-            </div> -->
-          </div>
-        </div>
-        <div class="challenge_cont">
-          <div class="challenge_inner">
-            <div class="challenge_txt">
-              <p>선택 기간동안</p>
-              <p>도전할 금액을 입력해 주세요</p>
+              <div class="challenge_price_btn btn">확인</div>
             </div>
-            <div class="challenge_box">
-              <div class="challenge_box_inner">
-                <span>기간</span>
-                <input type="text" id="challengeDate">
-              </div>
-              <div class="challenge_box_inner">
-                <span>예산</span>
-                <input type="text" id="number">
-                <span>원</span>
-              </div>
-            </div>
-            <div class="challenge_price_btn btn">확인</div>
           </div>
+
         </div>
       </main>
       <footer></footer>

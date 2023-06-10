@@ -1,0 +1,39 @@
+.calendar_wrap{display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;padding-top: 120px }
+
+.calendar{box-shadow: var(--main-box); border-radius: 20px ; background-color: #fff; min-height: 400px;padding: 20px;margin:0 20px;}
+
+
+.cal_header{}
+.year_month{font-size: 1.2rem; font-weight: 700;}
+.cal_nav{text-align: center;padding-bottom: 30px;}
+
+.cal_nav_btn {position:relative;vertical-align: middle; border: none; cursor: pointer; background: transparent; padding:0 15px;}
+
+.cal_nav_btn.prev:before{position: absolute;top:50%; left:0; transform: translateY(-50%); font-weight: 900;font-family: "Font Awesome 6 Free";content: "\f104"; font-size: 1.2rem;}
+
+.cal_nav_btn.next:before{position: absolute;top:50%; right:0; transform: translateY(-50%); font-weight: 900;font-family: "Font Awesome 6 Free";    content: "\f105"; font-size: 1.2rem;}
+
+
+
+.cal_days{display: flex; text-align: center;font-size: 1.2rem;font-weight: 600;}
+.cal_day{width: calc(100% / 7);padding: 10px;}
+
+.cal_dates{display: flex; flex-wrap: wrap; text-align: center;font-size: 1.1rem;}
+.cal_date{position: relative; width:calc(100% / 7);padding: 10px;}
+
+.cal_date::before{position: absolute; top:50%; left:50%;width: 30px;
+  height: 30px;transform: translate(-50%, -50%); content:"";border-radius: 50%;background-color:transparent; opacity: 0.3;}
+.cal_date.selected::before{background-color:#ef9073;}
+
+.cal_date .today{position: relative;}
+.cal_date .today::before{position: absolute; top:50%; left:50%;width: 30px;
+  height: 30px;transform: translate(-50%, -50%); content:"";border-radius: 50%;background-color: #695ce9; opacity: 0.2;}
+.cal_date .othermonth {opacity: 0.3;}
+
+.cal_day:nth-child(7n + 1),
+.cal_date:nth-child(7n + 1) {color:#F2663B}
+
+.cal_btn,.challenge_date_btn, .challenge_price_btn{width: 100px; height: 40px; margin: 20px auto;line-height: 40px;}
+
+.challenge_price{position: absolute; width: 0; height: 100%; overflow: hidden; top: 170px;left: 0; background: #fff; transition: all 0.3s;}
+.challenge_price.price_on{width:100%; overflow: auto;}
