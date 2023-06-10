@@ -1,6 +1,10 @@
 let startDate;
 let endDate;
 $("#datepicker_start").datepicker({
+  dateOptions:{
+    debug:true,
+  },
+  
   onSelect: function (dateString) {
     console.log(dateString);
     startDate = dateString;
@@ -67,6 +71,7 @@ $.datepicker.setDefaults({
   showMonthAfterYear: true,
   yearSuffix: "년",
 });
+
 //메뉴 클릭
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");
 menuBtn.forEach((el) => {
