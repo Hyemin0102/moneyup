@@ -66,7 +66,7 @@ const dateBtn = document.querySelector('.challenge_date_btn');
 const challengeDate = document.querySelector('.challenge_date');
 const callengePrice = document.querySelector('.challenge_price');
 
-plusBtn,challengeBtn.addEventListener('click',()=>{
+plusBtn.addEventListener('click',()=>{
   challengeDate.classList.add('calendar_on');
 })
 
