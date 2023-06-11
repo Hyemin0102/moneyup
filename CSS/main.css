@@ -41,8 +41,43 @@ main{padding-top: 120px; position: relative;}
   box-shadow: var(--main-box);
   border-radius: 8px;
   padding: 30px 0;}
-  .detail_inner{border:1px solid red;}
-  .detail_inner .circle {width:250px; height: 250px; margin:auto; border: 1px solid blue; border-radius: 50%;}
+  .challenge_circle {position:relative; width:250px; height: 250px; margin:auto;/* background-color: var(--main-purple); */ border-radius: 50%;}
+  .circle_outer{height: 250px; width: 250px; border-radius: 50%; padding:25px;
+    box-shadow:var(--main-box)}
+  .circle_inner{
+    display: flex; align-items: center; justify-content: center;
+    height: 200px; width:200px;border-radius: 50%; 
+    box-shadow:var(--main-box)
+    ;}
+    #circle_number{
+      display: flex; align-items: center; justify-content: center;
+      width: 130px; height: 130px; border-radius: 50%;
+      box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+      -6px -6px 10px -1px rgba(255,255,255,0.7);
+      font-weight: bold;
+    }
+
+  circle{
+    fill: none; stroke: url(#GradientColor); stroke-width: 25px; 
+    stroke-dasharray:700;stroke-dashoffset: 70;
+  }
+  svg{
+    position: absolute; top: 0; left: 0;
+  }
+
+/*   .circle_outer{height: 250px; width: 250px; border-radius: 50%; padding:25px;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+    -6px -6px 10px -1px rgba(255,255,255,0.7);}
+  .circle_inner{
+    display: flex; align-items: center; justify-content: center;
+    height: 200px; width:200px;border-radius: 50%; 
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2),
+                inset -4px -4px 6px -1px rgba(255,255,255,0.7),
+                -0.5px -0.5px 0px rgba(255,255,255,1),
+                0.5px 0.5px 0px rgba(0,0,0,0.15),
+                0px 12px 10px -10px rgba(0,0,0,0.05)
+    ;} */
+
 
 
 
