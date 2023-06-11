@@ -1,7 +1,7 @@
 :root {
   --main-purple: #9287ff;
-  --main-pink: #ffd8cc;
-  --main-blue: #d3e1fc;
+  --main-pink: rgb(255, 216, 204);
+  --main-blue: rgb(211, 225, 252);
   --main-box: 0px 0px 4px 3px rgba(0, 0, 0, 0.1)
 }
 
@@ -57,7 +57,7 @@ main{padding-top: 120px; position: relative;}
 
   circle{
     fill: none; stroke: url(#GradientColor); stroke-width: 25px; 
-    stroke-dasharray:700;stroke-dashoffset: 70;
+    stroke-dasharray:720; stroke-dashoffset:0;
   }
   svg{
     position: absolute; top: 0; left: 0;
