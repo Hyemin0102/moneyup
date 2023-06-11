@@ -1,7 +1,7 @@
 :root {
-  --main-purple: rgb(146, 135, 255);
-  --main-pink: rgb(255, 216, 204);
-  --main-blue: rgb(211, 225, 252);
+  --main-purple: #9287ff;
+  --main-pink: #ffd8cc;
+  --main-blue: #d3e1fc;
   --main-box: 0px 0px 4px 3px rgba(0, 0, 0, 0.1)
 }
 
@@ -49,13 +49,11 @@ main{padding-top: 120px; position: relative;}
     height: 200px; width:200px;border-radius: 50%; 
     box-shadow:var(--main-box)
     ;}
-    #circle_number{
-      display: flex; align-items: center; justify-content: center;
-      width: 130px; height: 130px; border-radius: 50%;
-      box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
-      -6px -6px 10px -1px rgba(255,255,255,0.7);
-      font-weight: bold;
+    .circle_number{
+      display: flex; flex-direction:column; align-items: center; gap:20px; justify-content: center;width: 130px; height: 130px; border-radius: 50%;box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.1), 0px 0px 10px -1px rgba(0,0,0,0.1)
     }
+    .circle_number>div:nth-child(1){font-weight: bold;}
+    .circle_number>div:nth-child(2){box-shadow: var(--main-box); font-size: 12px; padding:5px 8px; border-radius: 8px;}
 
   circle{
     fill: none; stroke: url(#GradientColor); stroke-width: 25px; 
