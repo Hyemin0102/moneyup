@@ -46,34 +46,36 @@
             <!-- 챌린지 있는 경우 main_challenge -->
             <div class="main_challenge">
               <div class="challenge_wrap">
-                <div class="challenge_info">
-                  <p>2023.06.01~2023.06.30</p>
-                  <p class="info_dday">챌린지 종료까지<span> 17일 </span>남았어요</p>
-                  <div class="progress">진행중</div>
-                </div>
-                <div class="challenge_detail">
-                    <div class="challenge_circle">
-                      <div class="circle_outer">
-                        <div class="circle_inner">
-                          <div class="circle_number">
-                            <div class="cur_price">450,000원</div>
-                            <div class="pre_price">500,000원</div>
+                <div class="challenge_inner">
+                  <!-- <div class="challenge_info">
+                    <p class="info_date">2023.06.01~2023.06.30</p>
+                    <p class="info_dday">챌린지 종료까지<span class="calc_dday">10일</span>남았어요</p>
+                    <div class="progress">진행중</div>
+                  </div>
+                  <div class="challenge_detail">
+                      <div class="challenge_circle">
+                        <div class="circle_outer">
+                          <div class="circle_inner">
+                            <div class="circle_number">
+                              <div class="cur_price">500,000원</div>
+                              <div class="pre_price">500,000원</div>
+                            </div>
                           </div>
                         </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="250px" height="250px">
+                          <defs>
+                            <linearGradient id="GradientColor" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
+                                <stop offset="0%" stop-color="rgb(255, 216, 204)" />
+                                <stop offset="100%" stop-color="rgb(211, 225, 252)" />
+                            </linearGradient>
+                          </defs>
+                          <circle cx="125" cy="125" r="113" stroke-linecap="round" />
+                        </svg>
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="250px" height="250px">
-                        <defs>
-                          <linearGradient id="GradientColor" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
-                              <stop offset="0%" stop-color="rgb(255, 216, 204)" />
-                              <stop offset="100%" stop-color="rgb(211, 225, 252)" />
-                          </linearGradient>
-                        </defs>
-                        <circle cx="125" cy="125" r="113" stroke-linecap="round" />
-                </svg>
-                    </div>
+                  </div> -->
                 </div>
-                <button class="spend_btn btn"></button>
-                <button class="challenge_plus_btn btn">챌린지 추가</button>
+                <button class="spend_btn btn"><i class="fa-solid fa-circle-plus"></i></button>
+                <button class="main_plus_btn btn">챌린지 추가</button>
               </div>
             </div>
           </div>
@@ -100,24 +102,41 @@
           </div>
         
           <!-- 챌린지 금액 추가 -->
-          <div class="challenge_price">
-            <div class="price_inner">
-              <div class="price_txt">
+          <div class="challenge_amount">
+            <div class="amount_inner">
+              <div class="amount_txt">
                 <p>선택 기간동안</p>
                 <p>도전할 금액을 입력해 주세요</p>
               </div>
-              <div class="price_box">
-                <div class="price_box_inner">
+              <div class="amount_box">
+                <div class="amount_box_inner">
                   <span>기간</span>
-                  <input type="text" id="challengeDate">
+                  <input type="text" id="selectedDate">
                 </div>
-                <div class="price_box_inner">
+                <div class="amount_box_inner">
                   <span>예산</span>
-                  <input type="text" id="number">
+                  <input type="text" id="selectAmount">
                   <span>원</span>
                 </div>
               </div>
-              <div class="challenge_price_btn btn">확인</div>
+              <div class="challenge_amount_btn btn">확인</div>
+            </div>
+          </div>
+
+           <!-- 챌린지 사용내역 추가 -->
+           <div class="challenge_spend">
+            <div class="spend_inner">
+              <div class="spend_box">
+                <div class="spend_box_inner">
+                  <label>사용 내역</label>
+                  <input type="text" id="spendCont">
+                </div>
+                <div class="spend_box_inner">
+                  <label>금액</label>
+                  <input type="text" id="spendAmount">
+                </div>
+              </div>
+              <button class="spend_amount_btn btn">사용내역 추가</button>
             </div>
           </div>
 

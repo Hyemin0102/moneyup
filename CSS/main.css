@@ -24,24 +24,25 @@ body {
 
 main{padding-top: 120px; position: relative;}
 
-.main_wrap{position: relative; padding: 20px 30px 30px 30px;}
+.main_wrap{position: relative; padding: 20px 30px 30px 30px; height: 100%;}
 .main_wrap > .main_inner h2{font-weight: 700; font-size: 20px; padding-bottom: 20px;}
-.main_box{display: none; flex-direction: column;padding: 30px;text-align: center;gap: 70px;box-shadow: var(--main-box); border-radius: 50px; min-height: 400px;}
+.main_box{display: flex; flex-direction: column;padding: 30px;text-align: center;gap: 70px;box-shadow: var(--main-box); border-radius: 50px; min-height: 400px;}
 .main_box_inner{font-weight: 700;font-size: 18px;line-height: 1.3;letter-spacing: 0.5px;}
 .main_box_inner > p:nth-child(1){padding:50px 0;}
 
 .btn{border:none; box-shadow: 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 20px; color:var(--main-purple); background-color: #ffffff;font-weight: 700; font-size: 18px; cursor: pointer;font-family: "Pretendard"; text-align: center; display: block; margin: 0 auto;}
-.main_plus_btn, .challenge_plus_btn{width: 180px; height: 40px; line-height: 40px;}
+.main_plus_btn,.spend_amount_btn{width: 180px; height: 40px; line-height: 40px;}
+.spend_amount_btn{width:150px; font-size: 16px;}
 
-.main_challenge{display: block;}
+.main_challenge{display:none;}
 .challenge_wrap{display: flex;
   flex-direction: column;
   gap: 20px;}
 .challenge_info{position:relative;background: #fff;
   box-shadow: var(--main-box);
-  border-radius: 8px; padding: 10px;
+  border-radius: 8px; padding: 10px; margin-bottom: 30px;
 }
-.challenge_info > p:nth-of-type(1){font-size: 13px;}
+.challenge_info > p:nth-of-type(1){font-size: 13px;font-weight: bold;}
 .info_dday{font-weight: 600;
   font-size: 20px;
   padding-top: 10px;
@@ -76,13 +77,39 @@ main{padding-top: 120px; position: relative;}
 
   circle{
     fill: none; stroke: url(#GradientColor); stroke-width: 25px; 
-    stroke-dasharray:720; stroke-dashoffset:70;
+    stroke-dasharray:720; stroke-dashoffset:100;
   }
   svg{
     position: absolute; top: 0; left: 0;
   }
 
-  .spend_btn{width:40px; height: 40px; background-color: #fff; box-shadow: var(--main-box);margin: 20px auto 40px auto;}
+  .spend_btn{box-shadow: none;margin: 20px auto 30px auto;}
+  .spend_btn i {font-size: 2.5rem;box-shadow: var(--main-box);border-radius: 50%;}
+
+  .challenge_spend{background-color: #fff;position: absolute;z-index: 100;top: 50%;left: 50%; width: 80%;transform: translate(-50%, -50%);box-shadow: 0 0 10px 0 rgba(0,0,0,0.4);border-radius: 8px;height: 0px; overflow:hidden; transition: 0.3s}
+    .challenge_spend.spend_on{height: 450px; overflow: auto;}
+  .spend_inner{gap: 80px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px}
+    .spend_box_inner{margin: 10px auto;
+      display: flex;
+      padding: 10px 0;
+      align-items: center;
+      justify-content: space-between;}
+    .spend_box_inner label {width: 30%;
+      text-align: center;
+      font-weight: 600;}
+    .spend_box_inner input {border: none;
+      outline: none;
+      box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
+      height: 100%;
+      display: inline-block;
+      padding: 10px;
+      border-radius: 8px;
+      width: 60%;
+      font-family: 'Pretendard';}
+      
 
 /*   .circle_outer{height: 250px; width: 250px; border-radius: 50%; padding:25px;
     box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
@@ -101,12 +128,12 @@ main{padding-top: 120px; position: relative;}
 
 
 /* 챌린지 기간 추가 */
-.challenge_date, .challenge_price{ position:absolute; width:0; overflow: hidden; top:0; left:0; height:100%; background-color: #fff; display: flex;justify-content: center; padding-top:10%; transition: all 0.3s;}
+.challenge_date, .challenge_amount{ position:absolute; width:0; overflow: hidden; top:0; left:0; height:100%; background-color: #fff; display: flex;justify-content: center; padding-top:10%; transition: all 0.3s;}
 .challenge_date.calendar_on {width:100%; overflow: auto;}
-.challenge_date_btn,.challenge_price_btn {width:100px;line-height: 36px;}
+.challenge_date_btn,.challenge_amount_btn {width:100px;line-height: 36px;}
 
 
-.date_inner, .price_inner{display: flex; flex-direction: column;align-items: center;text-align: center;gap: 20px; }
+.date_inner, .amount_inner{display: flex; flex-direction: column;align-items: center;text-align: center;gap: 20px; }
 .date_inner form > div {width: 300px;height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1);border-radius: 10px;margin: 20px auto;box-sizing: border-box;cursor: pointer;display: flex;align-items: center;justify-content: center;}
 .date_inner form > div:nth-of-type(2){margin-bottom: 40px;}
 .date_inner input {position:relative; text-align: center;font-size: 1.1rem;font-family: "pretendard";border: none;border-radius: 10px;height: 100%;width: 100%;outline:none;background-color: transparent;
@@ -200,16 +227,16 @@ main{padding-top: 120px; position: relative;}
 
 /* 챌린지 금액 추가 */
 
-.challenge_price.price_on {width:100%; overflow: auto;}
+.challenge_amount.amount_on {width:100%; overflow: auto;}
 
 
-.challenge_price{position: absolute; top:0; left:0;}
-.price_txt{font-weight: bold; font-size: 20px;padding-top: 20px;line-height: 24px;}
+.challenge_amount{position: absolute; top:0; left:0;}
+.amount_txt{font-weight: bold; font-size: 20px;padding-top: 20px;line-height: 24px;}
 
-.price_box_inner{width: 300px; height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto; display: flex; justify-content: space-around; align-items: center; padding: 0 10px;}
+.amount_box_inner{width: 300px; height: 50px;box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px 3px rgba(0, 0, 0, 0.1); border-radius: 10px;margin:20px auto; display: flex; justify-content: space-around; align-items: center; padding: 0 10px;}
 
-.price_box input {outline: none; font-family: 'Pretendard'; font-weight: 700; border: none; text-align: center; width: 85%; font-size: 1rem;}
-.price_box_inner > span:nth-child(1){width:15%;opacity: 0.6;font-size: 0.9rem;}
+.amount_box input {outline: none; font-family: 'Pretendard'; font-weight: 700; border: none; text-align: center; width: 85%; font-size: 1rem;}
+.amount_box_inner > span:nth-child(1){width:15%;opacity: 0.6;font-size: 0.9rem;}
 
 
 
