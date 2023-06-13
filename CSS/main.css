@@ -145,7 +145,7 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
 
 
 /*datepicker - start*/
-.ui-widget.ui-widget-content {position:fixed; top: unset !important; left: 50% !important; bottom: 0 !important; max-width: 640px !important;
+.ui-widget.ui-widget-content {position:fixed !important; top: unset !important; left: 50% !important; bottom: 0 !important; max-width: 640px !important;
 min-width: 320px !important; transform: translateX(-50%) !important; } 
 #datepicker:focus>.ui-datepicker { display: block; }
 .ui-datepicker {position:absolute; height:400px; left:0; display: none; background-color: #fff; margin-top: 10px; margin-left: 0px; margin-right: 0px; padding: 20px;  width: 100%;border-radius: 40px 40px 0 0 ;  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5) } 
