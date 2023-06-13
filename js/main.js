@@ -27,6 +27,25 @@ $("#datepicker_end").datepicker({
   },
 });
 
+/* $(".datepicker_comm").datepicker({
+  datepicker("widget").css({
+
+  })
+
+})
+ $(function () {
+  $(".date_comm").on("focus", function () {
+    $(this).datepicker("widget").css({
+      position: "absolute",
+      top: "unset",
+      left: "0",
+      zIndex: "1",
+      display: "block",
+      bottom: "0",
+    });
+  });
+}); */
+
 //datepicker 기본 세팅
 $.datepicker.setDefaults({
   dateFormat: "yy-mm-dd",
