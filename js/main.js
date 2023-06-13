@@ -155,7 +155,7 @@ const remainingAmountCalc = () => {
     }))`; //calc 값 구함
 
     let circle = document.querySelector("circle");
-    circle.style = `stroke-dashoffset:${strokeDashOffsetCalc}`;
+    circle.setAttribute("style", `stroke-dashoffset:${strokeDashOffsetCalc}`);
 
     curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
     if (remainingAmount === 0) {
