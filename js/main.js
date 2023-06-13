@@ -142,7 +142,6 @@ let inputAmount; //최초 금액
 let usedAmount = 0; //총 사용 금액
 let remainingAmount = selectAmount.value; //잔여 금액
 let curAmount;
-let bar;
 
 //전체 금액에서 잔여 금액 계산 함수
 const remainingAmountCalc = () => {
@@ -166,9 +165,8 @@ const remainingAmountCalc = () => {
       1 - strokeDashOffsetPercentage
     }))`; //calc 값 구함
 
-  setTimeout(() => {
+    let bar = document.querySelector(".bar");
     bar.style.strokeDashoffset = strokeDashOffsetCalc;
-  }, 0);
 
     curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
     if (remainingAmount === 0) {
@@ -228,6 +226,5 @@ const createChallenge = () => {
   `;
   challengeWrap.prepend(challengeInner);
   curAmount = document.querySelector(".cur_amount"); //잔여 예산
-  bar = document.querySelector(".bar");
   console.log("curAmount", curAmount);
 };
