@@ -101,7 +101,10 @@ main{padding-top: 120px; position: relative;}
     .spend_box_inner label {width: 30%;
       text-align: center;
       font-weight: 600;}
-    .spend_box_inner input {border: none;
+    .spend_box_inner input {
+      -webkit-appearance: none;
+      appearance: none;
+      border: none;
       outline: none;
       box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);
       height: 100%;
