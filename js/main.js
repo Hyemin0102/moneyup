@@ -142,6 +142,7 @@ let inputAmount; //최초 금액
 let usedAmount = 0; //총 사용 금액
 let remainingAmount = selectAmount.value; //잔여 금액
 let curAmount;
+let bar;
 
 //전체 금액에서 잔여 금액 계산 함수
 const remainingAmountCalc = () => {
@@ -165,8 +166,7 @@ const remainingAmountCalc = () => {
       1 - strokeDashOffsetPercentage
     }))`; //calc 값 구함
 
-    let circle = document.querySelector("circle");
-    circle.style.setProperty("stroke-dashoffset", strokeDashOffsetCalc);
+    bar.style.strokeDashoffset = strokeDashOffsetCalc;
 
     curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
     if (remainingAmount === 0) {
@@ -219,12 +219,13 @@ const createChallenge = () => {
               <stop offset="100%" stop-color="rgb(211, 225, 252)" />
           </linearGradient>
         </defs>
-        <circle cx="125" cy="125" r="113" stroke-linecap="round" />
+        <circle class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
       </svg>
     </div>
   </div>
   `;
   challengeWrap.prepend(challengeInner);
   curAmount = document.querySelector(".cur_amount"); //잔여 예산
+  bar = document.querySelector(".bar");
   console.log("curAmount", curAmount);
 };
