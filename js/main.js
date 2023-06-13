@@ -5,6 +5,7 @@ let endDateString;
 
 $("#datepicker_start").datepicker({
   minDate: 0,
+  maxDate: $("#datepicker_end").val(),
   onSelect: function () {
     //startDate = dateString;
     startDate = $.datepicker.formatDate(
@@ -13,16 +14,22 @@ $("#datepicker_start").datepicker({
     );
     startDateString = startDate.toString(); //날짜형식 문자로 변환
   },
+  onClose: function (selectedDate) {
+    $("#datepicker_end").datepicker("option", "minDate", selectedDate);
+  },
 });
 
 $("#datepicker_end").datepicker({
-  minDate: 0,
+  minDate: $("#datepicker_start").val(),
   onSelect: function () {
     endDate = $.datepicker.formatDate(
       "yy-mm-dd",
       $("#datepicker_end").datepicker("getDate")
     );
     endDateString = endDate.toString();
+  },
+  onClose: function (selectedDate) {
+    $("#datepicker_start").datepicker("option", "maxDate", selectedDate);
   },
 });
 
@@ -124,6 +131,11 @@ const spendCont = document.getElementById("spendCont");
 
 spendBtn.addEventListener("click", () => {
   challengeSpend.classList.add("spend_on");
+  document
+    .querySelector(".spend_amount_close")
+    .addEventListener("click", () => {
+      challengeSpend.classList.remove("spend_on");
+    });
 });
 
 let inputAmount; //최초 금액
