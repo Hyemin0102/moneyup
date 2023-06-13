@@ -18,9 +18,22 @@ body {
 .header_inner ul > li { flex:1; padding: 5px 0; text-align: center;}
 
 .header_inner ul > li > a {position: relative; color: #fff; display: inline-block; padding: 0 10px; font-weight: 600; letter-spacing: 1px}
-.header_inner ul > li > a:before{position: absolute; content: ""; bottom: -17px; left:0; width:0; height: 4px; background-color:#222222; transition: 0.3s ease-in-out; border-radius: 999px;}
+.header_top{display: flex;}
+.gnb_btn {position: absolute;width: 20px;
+  height: 25px;
+  cursor: pointer;
+  right: 5%;
+  top: 26px;}
+.gnb_btn span { position: absolute; width: 100%; height: 2px; top:calc(50% - 1px); background-color: #fff; }
 
-.header_inner ul > li.active > a:before{width:100%;}
+  .gnb_btn > span::before,
+  .gnb_btn > span::after { position: absolute; width: 100%; height: 2px; background: #fff; content: ""; }
+  .gnb_btn > span::before { top: -7px; }
+  .gnb_btn > span::after { top:7px;}
+
+/* .header_inner ul > li > a:before{position: absolute; content: ""; bottom: -17px; left:0; width:0; height: 4px; background-color:#222222; transition: 0.3s ease-in-out; border-radius: 999px;}
+
+.header_inner ul > li.active > a:before{width:100%;} */
 
 main{padding-top: 120px; position: relative;}
 

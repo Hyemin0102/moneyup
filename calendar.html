@@ -1,63 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>calendar</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>calendar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <link rel="stylesheet" href="CSS/reset.css" />
     <link rel="stylesheet" href="CSS/default.css" />
     <link rel="stylesheet" href="CSS/main.css" />
     <link rel="stylesheet" href="CSS/calendar.css" />
-  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="js/prefixfree.min.js"></script>
     <script defer src="js/common.js"></script>
     <script defer src="js/calendar.js"></script>
-</head>
-<body>
-  <div id="container">
-    <header>
-      <div class="header_inner">
-        <h1>MU:</h1>
-        <ul class="menu">
-          <li class="active"><a href="./index.html">챌린지</a></li>
-          <li><a href="#">관리</a></li>
-          <li><a href="./calendar.html">달력</a></li>
-          <li><a href="#">설정</a></li>
-        </ul>
-      </div>
-    </header>
-    <div class="calendar_wrap">
-      <div class="calendar">
-        <div class="cal_header">
-          <div class="cal_nav">
-            <button class="cal_nav_btn prev"></button>
-            <span class="year_month"></span>
-            <button class="cal_nav_btn next"></button>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <div class="header_inner">
+          <h1>MU:</h1>
+          <div class="gnb_btn">
+            <span></span>
           </div>
-          <div class="cal_main">
-            <div class="cal_days">
-              <div class="cal_day">일</div>
-              <div class="cal_day">월</div>
-              <div class="cal_day">화</div>
-              <div class="cal_day">수</div>
-              <div class="cal_day">목</div>
-              <div class="cal_day">금</div>
-              <div class="cal_day">토</div>
-            </div>
-            <div class="cal_dates">
-            </div>
-          
-          </div>
+          <ul class="menu">
+            <li class="active"><a href="./index.html">챌린지</a></li>
+            <li><a href="#">관리</a></li>
+            <li><a href="./calendar.html">달력</a></li>
+            <li><a href="#">설정</a></li>
+          </ul>
         </div>
-        <div class="cal_btn btn">
-          확인
+      </header>
+      <div class="calendar_wrap">
+        <div class="calendar">
+          <div class="cal_header">
+            <div class="cal_nav">
+              <button class="cal_nav_btn prev"></button>
+              <span class="year_month"></span>
+              <button class="cal_nav_btn next"></button>
+            </div>
+            <div class="cal_main">
+              <div class="cal_days">
+                <div class="cal_day">일</div>
+                <div class="cal_day">월</div>
+                <div class="cal_day">화</div>
+                <div class="cal_day">수</div>
+                <div class="cal_day">목</div>
+                <div class="cal_day">금</div>
+                <div class="cal_day">토</div>
+              </div>
+              <div class="cal_dates"></div>
+            </div>
+          </div>
+          <div class="cal_btn btn">확인</div>
         </div>
       </div>
-  </div>
-  </div>
-</body>
+    </div>
+  </body>
 </html>
