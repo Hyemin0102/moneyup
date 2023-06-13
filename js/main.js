@@ -166,7 +166,9 @@ const remainingAmountCalc = () => {
       1 - strokeDashOffsetPercentage
     }))`; //calc 값 구함
 
+  setTimeout(() => {
     bar.style.strokeDashoffset = strokeDashOffsetCalc;
+  }, 0);
 
     curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
     if (remainingAmount === 0) {
