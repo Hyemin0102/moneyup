@@ -117,7 +117,6 @@ amountBtn.addEventListener("click", () => {
 
 //사용 내역 입력 시 해당 금액만큼 빠지기
 const preAmount = document.querySelector(".pre_amount"); //최초 예산
-const curAmount = document.querySelector(".cur_amount"); //잔여 예산
 const spendBtn = document.querySelector(".spend_btn"); //입력 전 사용내역 추가 버튼
 const spendAmountBtn = document.querySelector(".spend_amount_btn"); //입력 후 사용내역 추가 버튼
 const challengeSpend = document.querySelector(".challenge_spend");
@@ -131,6 +130,7 @@ spendBtn.addEventListener("click", () => {
 let inputAmount; //최초 금액
 let usedAmount = 0; //총 사용 금액
 let remainingAmount = selectAmount.value; //잔여 금액
+let curAmount;
 
 //전체 금액에서 잔여 금액 계산 함수
 const remainingAmountCalc = () => {
@@ -140,20 +140,30 @@ const remainingAmountCalc = () => {
   let inputSpendAmount = spendAmount.value; //입력한 사용금액 계산 위해 숫자로 변환 but 콤마 포함되어있음
   let spendAmountValue = inputSpendAmount.replace(/,/g, ""); //숫자
 
-  usedAmount += parseInt(spendAmountValue); //사용자 입력 금액
+  usedAmount += parseInt(spendAmountValue); //사용자 입력 금액 -> 사용 금액에 더하기
   remainingAmount = inputAmountValue - usedAmount; //잔여 금액
+  console.log("remainingAmount", remainingAmount);
+  console.log("inputAmountValue", inputAmountValue);
 
-  let remainingPercentage = (remainingAmount / inputAmountValue) * 100; //잔여금액 퍼센트
-  let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
+  if (remainingAmount >= 0) {
+    let remainingPercentage = (remainingAmount / inputAmountValue) * 100; //잔여금액 퍼센트
+    let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
 
-  let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
-  let strokeDashOffsetCalc = `calc(720 - (720 * ${
-    1 - strokeDashOffsetPercentage
-  }))`; //calc 값 구함
-  console.log("strokeDashOffsetCalc", strokeDashOffsetCalc);
+    let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
+    let strokeDashOffsetCalc = `calc(720 - (720 * ${
+      1 - strokeDashOffsetPercentage
+    }))`; //calc 값 구함
 
-  let circle = document.querySelector("circle");
-  circle.style = `stroke-dashoffset:${strokeDashOffsetCalc}`;
+    let circle = document.querySelector("circle");
+    circle.style = `stroke-dashoffset:${strokeDashOffsetCalc}`;
+
+    curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
+    if (remainingAmount === 0) {
+      alert("챌린지 금액을 모두 소비하셨습니다.");
+    }
+  } else {
+    alert("챌린지가 종료되었습니다.");
+  }
 
   spendAmount.value = "";
   spendCont.value = ""; //사용내역 초기화
@@ -204,4 +214,6 @@ const createChallenge = () => {
   </div>
   `;
   challengeWrap.prepend(challengeInner);
+  curAmount = document.querySelector(".cur_amount"); //잔여 예산
+  console.log("curAmount", curAmount);
 };
