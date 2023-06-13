@@ -4,9 +4,7 @@ let startDateString;
 let endDateString;
 
 $("#datepicker_start").datepicker({
-  dateOptions: {
-    debug: true,
-  },
+  minDate: 0,
   onSelect: function () {
     //startDate = dateString;
     startDate = $.datepicker.formatDate(
@@ -18,6 +16,7 @@ $("#datepicker_start").datepicker({
 });
 
 $("#datepicker_end").datepicker({
+  minDate: 0,
   onSelect: function () {
     endDate = $.datepicker.formatDate(
       "yy-mm-dd",
