@@ -27,25 +27,6 @@ $("#datepicker_end").datepicker({
   },
 });
 
-/* $(".datepicker_comm").datepicker({
-  datepicker("widget").css({
-
-  })
-
-})
- $(function () {
-  $(".date_comm").on("focus", function () {
-    $(this).datepicker("widget").css({
-      position: "absolute",
-      top: "unset",
-      left: "0",
-      zIndex: "1",
-      display: "block",
-      bottom: "0",
-    });
-  });
-}); */
-
 //datepicker 기본 세팅
 $.datepicker.setDefaults({
   dateFormat: "yy-mm-dd",
@@ -125,15 +106,13 @@ const addComma = (e) => {
 selectAmount.addEventListener("input", addComma);
 spendAmount.addEventListener("input", addComma);
 
-let inputAmount; //사용자가 최초 입력한 금액
-
 //기간, 금액 입력 후 최종 확인 버튼
 amountBtn.addEventListener("click", () => {
   challengeDate.classList.remove("calendar_on");
   challengeAmount.classList.remove("amount_on");
   mainChallenge.style.display = "block"; //메인 페이지 보이게
   mainBox.style.display = "none";
-  createChallenge();
+  createChallenge(); //챌린지 생성
 });
 
 //사용 내역 입력 시 해당 금액만큼 빠지기
@@ -141,33 +120,49 @@ const preAmount = document.querySelector(".pre_amount"); //최초 예산
 const curAmount = document.querySelector(".cur_amount"); //잔여 예산
 const spendBtn = document.querySelector(".spend_btn"); //입력 전 사용내역 추가 버튼
 const spendAmountBtn = document.querySelector(".spend_amount_btn"); //입력 후 사용내역 추가 버튼
+const challengeSpend = document.querySelector(".challenge_spend");
 
 const spendCont = document.getElementById("spendCont");
 
 spendBtn.addEventListener("click", () => {
-  document.querySelector(".challenge_spend").classList.add("spend_on");
+  challengeSpend.classList.add("spend_on");
 });
 
-let inputSpendAmount = 0; //사용내역의 금액
-let inputSpendCont; //사용내역의 내용
-let usedAmount = 0;
+let inputAmount; //최초 금액
+let usedAmount = 0; //총 사용 금액
+let remainingAmount = selectAmount.value; //잔여 금액
 
-//사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
-spendAmountBtn.addEventListener("click", () => {
-  inputSpendCont = spendCont.value; //입력한 사용내역
-  inputSpendAmount = spendAmount.value; //입력한 사용금액 계산 위해 숫자로 변환 but 콤마 포함되어있음
-  let spendAmountValue = inputSpendAmount.replace(/,/g, ""); //숫자
-  console.log("spendAmountValue", spendAmountValue);
-
+//전체 금액에서 잔여 금액 계산 함수
+const remainingAmountCalc = () => {
   inputAmount = selectAmount.value; //전체 금액
   let inputAmountValue = inputAmount.replace(/,/g, ""); //숫자
 
-  console.log("inputAmountValue", inputAmountValue);
+  let inputSpendAmount = spendAmount.value; //입력한 사용금액 계산 위해 숫자로 변환 but 콤마 포함되어있음
+  let spendAmountValue = inputSpendAmount.replace(/,/g, ""); //숫자
 
-  usedAmount = spendAmountValue; //사용자 입력 금액
-  let remainingAmount = inputAmountValue - usedAmount;
-  console.log("remainingAmount", remainingAmount);
-  //console.log("usedAmount", typeof usedAmount);
+  usedAmount += parseInt(spendAmountValue); //사용자 입력 금액
+  remainingAmount = inputAmountValue - usedAmount; //잔여 금액
+
+  let remainingPercentage = (remainingAmount / inputAmountValue) * 100; //잔여금액 퍼센트
+  let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
+
+  let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
+  let strokeDashOffsetCalc = `calc(720 - (720 * ${
+    1 - strokeDashOffsetPercentage
+  }))`; //calc 값 구함
+  console.log("strokeDashOffsetCalc", strokeDashOffsetCalc);
+
+  let circle = document.querySelector("circle");
+  circle.style = `stroke-dashoffset:${strokeDashOffsetCalc}`;
+
+  spendAmount.value = "";
+  spendCont.value = ""; //사용내역 초기화
+};
+
+//사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
+spendAmountBtn.addEventListener("click", () => {
+  challengeSpend.classList.remove("spend_on");
+  remainingAmountCalc();
 });
 
 //챌린지 생성 함수
@@ -192,7 +187,7 @@ const createChallenge = () => {
         <div class="circle_inner">
           <div class="circle_number">
             <div class="cur_amount">${selectAmount.value}원</div>
-            <div class="pre_amount">${selectAmount.value}원</div>
+            <div class="pre_amount">￦${selectAmount.value}</div>
           </div>
         </div>
       </div>
