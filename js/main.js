@@ -73,6 +73,12 @@ $.datepicker.setDefaults({
   yearSuffix: "년",
 });
 
+let swiper = new Swiper(".challenge_swiper", {
+  pagination: {
+    el: ".swiper-pagination",
+  },
+});
+
 const plusBtn = document.querySelectorAll(".main_plus_btn");
 const challengeDate = document.querySelector(".challenge_date");
 
@@ -188,6 +194,10 @@ spendAmountBtn.addEventListener("click", () => {
 
 //챌린지 생성 함수
 const challengeWrap = document.querySelector(".challenge_wrap");
+
+//챌린지 데이터들 담을 변수 생성
+let challengeDates = [];
+
 const createChallenge = () => {
   let today = new Date();
   let endDday = new Date(endDate);
@@ -195,7 +205,8 @@ const createChallenge = () => {
   let result = Math.ceil(endGap / (1000 * 60 * 60 * 24));
 
   let challengeInner = document.createElement("div");
-  challengeInner.classList.add("challenge_inner");
+  challengeInner.classList.add("challenge_inner", "swiper-slide");
+
   challengeInner.innerHTML = `
   <div class="challenge_info">
     <p class="info_date">${startDateString} ~ ${endDateString}</p>
@@ -224,7 +235,9 @@ const createChallenge = () => {
     </div>
   </div>
   `;
-  challengeWrap.prepend(challengeInner);
+  challengeWrap.appendChild(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
   curAmount = document.querySelector(".cur_amount"); //잔여 예산
-  console.log("curAmount", curAmount);
+
+  swiper.update(); // 슬라이드 요소 업데이트
+  swiper.updatePagination(); // 페이지네이션 업데이트
 };
