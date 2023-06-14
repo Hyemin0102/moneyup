@@ -121,10 +121,10 @@ const save = () => {
 };
 
 //datepicker 날짜 로컬스토리지 저장
+let num = 0;
 const localSave = () => {
-  let num = 0;
   const challengeObj = {
-    sq: num++,
+    seq: ++num,
     startDate: startDate,
     endDate: endDate,
     amount: selectAmount.value,
@@ -141,7 +141,6 @@ amountBtn.addEventListener("click", () => {
   mainBox.style.display = "none";
 
   createChallenge(); //챌린지 생성
-  localSave();
 });
 
 //사용 내역 입력 시 해당 금액만큼 빠지기
@@ -210,51 +209,62 @@ const challengeWrap = document.querySelector(".challenge_wrap");
 let challengeDates = [];
 
 const createChallenge = () => {
-  let today = new Date();
-  let endDday = new Date(endDate);
-  let endGap = endDday.getTime() - today.getTime();
-  let result = Math.ceil(endGap / (1000 * 60 * 60 * 24));
-
+  challengeWrap.innerHTML = '';
+  localSave();
+  console.log("저장함 ",challengeArray);
   //로컬스토리지에서 값 빼오기
+  console.log('빼옴',challengeArray);
 
-  let challengeInner = document.createElement("div");
-  challengeInner.classList.add("challenge_inner", "swiper-slide");
+  challengeArray.forEach((el)=> {
+    console.log('el',el); 
 
-  challengeInner.innerHTML = `
-  <div class="challenge_info">
-    <p class="info_date">${startDateString} ~ ${endDateString}</p>
-    <p class="info_dday">챌린지 종료까지<span class="calc_dday">${result.toString()}일</span>남았어요</p>
-    <div class="progress">진행중</div>
-  </div>
-  <div class="challenge_detail">
-    <div class="challenge_circle">
-      <div class="circle_outer">
-        <div class="circle_inner">
-          <div class="circle_number">
-            <div class="cur_amount">${selectAmount.value}원</div>
-            <div class="pre_amount">￦${selectAmount.value}</div>
+    let today = new Date();
+    let endDday = new Date(el.endDate);
+    let endGap = endDday.getTime() - today.getTime();
+    let result = Math.ceil(endGap / (1000 * 60 * 60 * 24));
+
+    let challengeInner = document.createElement("div");
+    challengeInner.classList.add("challenge_inner", "swiper-slide");
+  
+    challengeInner.innerHTML = `
+    <div class="challenge_info">
+      <p class="info_date">${el.startDate} ~ ${el.endDate}</p>
+      <p class="info_dday">챌린지 종료까지<span class="calc_dday">${result.toString()}일</span>남았어요</p>
+      <div class="progress">진행중</div>
+    </div>
+    <div class="challenge_detail">
+      <div class="challenge_circle">
+        <div class="circle_outer">
+          <div class="circle_inner">
+            <div class="circle_number">
+              <div class="cur_amount">${el.amount}원</div>
+              <div class="pre_amount">￦${el.amount}</div>
+            </div>
           </div>
         </div>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="250px" height="250px">
+          <defs>
+            <linearGradient id="GradientColor" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="rgb(255, 216, 204)" />
+                <stop offset="100%" stop-color="rgb(211, 225, 252)" />
+            </linearGradient>
+          </defs>
+          <circle class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
+        </svg>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="250px" height="250px">
-        <defs>
-          <linearGradient id="GradientColor" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
-              <stop offset="0%" stop-color="rgb(255, 216, 204)" />
-              <stop offset="100%" stop-color="rgb(211, 225, 252)" />
-          </linearGradient>
-        </defs>
-        <circle class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
-      </svg>
     </div>
-  </div>
-  `;
-  challengeWrap.append(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
-  curAmount = document.querySelector(".cur_amount"); //잔여 예산
+    `;
 
-  $("#datepicker_start").datepicker("setDate", "");
-  $("#datepicker_end").datepicker("setDate", "");
+    challengeWrap.append(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
+    curAmount = document.querySelector(".cur_amount"); //잔여 예산 */
+  
+    $("#datepicker_start").datepicker("setDate", "");
+    $("#datepicker_end").datepicker("setDate", "");
+
+   swiper.update(); // 슬라이드 요소 업데이트
+  })
+
+  
   /*   selectAmount.value = ""; */
 
-  /*  swiper.update(); // 슬라이드 요소 업데이트
-  swiper.updatePagination(); // 페이지네이션 업데이트 */
 };

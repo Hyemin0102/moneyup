@@ -52,7 +52,7 @@ main{padding-top: 120px; position: relative;}
 /* swiper*/
 .swiper{padding-bottom: 30px;}
 .challenge_wrap{}
-.challenge_inner{padding:20px;background: #fff;  border:1px solid #cecece;}
+.challenge_inner{padding:20px;background: #fff;}
 .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{background-color:var(--main-purple)}
 
 .challenge_info{position:relative;background: #fff;
