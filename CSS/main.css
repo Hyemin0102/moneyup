@@ -47,12 +47,12 @@ main{padding-top: 120px; position: relative;}
 .main_plus_btn,.spend_amount_btn{width: 180px; line-height: 40px;}
 .spend_amount_btn{width:150px; font-size: 16px;}
 
-.main_challenge{display: none; border:1px solid #cecece; padding-bottom: 20px}
+.main_challenge{display: none; padding-bottom: 20px}
 
 /* swiper*/
 .swiper{padding-bottom: 30px;}
 .challenge_wrap{}
-.challenge_inner{padding:20px;background: #fff}
+.challenge_inner{padding:20px;background: #fff;  border:1px solid #cecece;}
 .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{background-color:var(--main-purple)}
 
 .challenge_info{position:relative;background: #fff;

@@ -5,9 +5,7 @@ let endDateString;
 
 $("#datepicker_start").datepicker({
   minDate: 0,
-  maxDate: $("#datepicker_end").val(),
   onSelect: function () {
-    //startDate = dateString;
     startDate = $.datepicker.formatDate(
       "yy-mm-dd",
       $("#datepicker_start").datepicker("getDate")
@@ -16,6 +14,7 @@ $("#datepicker_start").datepicker({
   },
   onClose: function (selectedDate) {
     $("#datepicker_end").datepicker("option", "minDate", selectedDate);
+    $("#datepicker_start").datepicker("option", "setDate", "today");
   },
 });
 
@@ -27,9 +26,6 @@ $("#datepicker_end").datepicker({
       $("#datepicker_end").datepicker("getDate")
     );
     endDateString = endDate.toString();
-  },
-  onClose: function (selectedDate) {
-    $("#datepicker_start").datepicker("option", "maxDate", selectedDate);
   },
 });
 
@@ -118,13 +114,33 @@ const addComma = (e) => {
 selectAmount.addEventListener("input", addComma);
 spendAmount.addEventListener("input", addComma);
 
+let challengeArray = JSON.parse(localStorage.getItem("challengeData")) || [];
+
+const save = () => {
+  localStorage.setItem("challengeData", JSON.stringify(challengeArray));
+};
+let num = 0;
+//datepicker 날짜 로컬스토리지 저장
+const localSave = () => {
+  const challengeObj = {
+    sq: num++,
+    startDate: startDate,
+    endDate: endDate,
+    amount: selectAmount.value,
+  };
+  challengeArray.push(challengeObj);
+  save(); //로컬스토리지에 challengeArray배열 저장
+};
+
 //기간, 금액 입력 후 최종 확인 버튼
 amountBtn.addEventListener("click", () => {
   challengeDate.classList.remove("calendar_on");
   challengeAmount.classList.remove("amount_on");
   mainChallenge.style.display = "block"; //메인 페이지 보이게
   mainBox.style.display = "none";
+
   createChallenge(); //챌린지 생성
+  localSave();
 });
 
 //사용 내역 입력 시 해당 금액만큼 빠지기
@@ -134,7 +150,7 @@ const spendAmountBtn = document.querySelector(".spend_amount_btn"); //입력 후
 const challengeSpend = document.querySelector(".challenge_spend");
 
 const spendCont = document.getElementById("spendCont");
-
+console.log("spendBtn", spendBtn);
 spendBtn.addEventListener("click", () => {
   challengeSpend.classList.add("spend_on");
   document
@@ -162,25 +178,19 @@ const remainingAmountCalc = () => {
   console.log("remainingAmount", remainingAmount);
   console.log("inputAmountValue", inputAmountValue);
 
-  if (remainingAmount >= 0) {
-    let remainingPercentage = (remainingAmount / inputAmountValue) * 100; //잔여금액 퍼센트
-    let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
+  let remainingPercentage = (remainingAmount / inputAmountValue) * 100; //잔여금액 퍼센트
+  let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
 
-    let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
-    let strokeDashOffsetCalc = `calc(720 - (720 * ${
-      1 - strokeDashOffsetPercentage
-    }))`; //calc 값 구함
+  let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
+  let strokeDashOffsetCalc = `calc(720 - (720 * ${
+    1 - strokeDashOffsetPercentage
+  }))`; //calc 값 구함
 
-    let bar = document.querySelector(".bar");
-    bar.style.strokeDashoffset = strokeDashOffsetCalc;
+  let bar = document.querySelector(".bar");
+  bar.style.strokeDashoffset = strokeDashOffsetCalc;
 
-    curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
-    if (remainingAmount === 0) {
-      alert("챌린지 금액을 모두 소비하셨습니다.");
-    }
-  } else {
-    alert("챌린지가 종료되었습니다.");
-  }
+  curAmount.innerHTML = `${remainingAmount.toLocaleString()}원`;
+  console.log("curAmount", curAmount);
 
   spendAmount.value = "";
   spendCont.value = ""; //사용내역 초기화
@@ -203,6 +213,8 @@ const createChallenge = () => {
   let endDday = new Date(endDate);
   let endGap = endDday.getTime() - today.getTime();
   let result = Math.ceil(endGap / (1000 * 60 * 60 * 24));
+
+  //로컬스토리지에서 값 빼오기
 
   let challengeInner = document.createElement("div");
   challengeInner.classList.add("challenge_inner", "swiper-slide");
@@ -235,9 +247,13 @@ const createChallenge = () => {
     </div>
   </div>
   `;
-  challengeWrap.appendChild(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
+  challengeWrap.append(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
   curAmount = document.querySelector(".cur_amount"); //잔여 예산
 
-  swiper.update(); // 슬라이드 요소 업데이트
-  swiper.updatePagination(); // 페이지네이션 업데이트
+  $("#datepicker_start").datepicker("setDate", "");
+  $("#datepicker_end").datepicker("setDate", "");
+  /*   selectAmount.value = ""; */
+
+  /*  swiper.update(); // 슬라이드 요소 업데이트
+  swiper.updatePagination(); // 페이지네이션 업데이트 */
 };
