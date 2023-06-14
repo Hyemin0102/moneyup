@@ -119,9 +119,10 @@ let challengeArray = JSON.parse(localStorage.getItem("challengeData")) || [];
 const save = () => {
   localStorage.setItem("challengeData", JSON.stringify(challengeArray));
 };
-let num = 0;
+
 //datepicker 날짜 로컬스토리지 저장
 const localSave = () => {
+  let num = 0;
   const challengeObj = {
     sq: num++,
     startDate: startDate,
