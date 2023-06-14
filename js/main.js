@@ -69,11 +69,16 @@ $.datepicker.setDefaults({
   yearSuffix: "년",
 });
 
+
 let swiper = new Swiper(".challenge_swiper", {
   pagination: {
     el: ".swiper-pagination",
-  },
+    dynamicBullets: false,
+  }
 });
+
+//로컬 저장된 값 없는 경우 mainBox display:flex
+//로컬 저장된 값 있는 경우 mainChallenge display:block;
 
 const plusBtn = document.querySelectorAll(".main_plus_btn");
 const challengeDate = document.querySelector(".challenge_date");
@@ -129,8 +134,11 @@ const localSave = () => {
     endDate: endDate,
     amount: selectAmount.value,
   };
-  challengeArray.push(challengeObj);
-  save(); //로컬스토리지에 challengeArray배열 저장
+  if(startDate!=null){//입력한 값이 있는 경우만 local 저장
+    challengeArray.push(challengeObj);
+    save(); //로컬스토리지에 challengeArray배열 저장
+  }
+
 };
 
 //기간, 금액 입력 후 최종 확인 버튼
@@ -139,7 +147,6 @@ amountBtn.addEventListener("click", () => {
   challengeAmount.classList.remove("amount_on");
   mainChallenge.style.display = "block"; //메인 페이지 보이게
   mainBox.style.display = "none";
-
   createChallenge(); //챌린지 생성
 });
 
@@ -164,9 +171,21 @@ let inputAmount; //최초 금액
 let usedAmount = 0; //총 사용 금액
 let remainingAmount = selectAmount.value; //잔여 금액
 let curAmount;
+let slideActive;
 
 //전체 금액에서 잔여 금액 계산 함수
 const remainingAmountCalc = () => {
+  console.log('전체배열',challengeArray);
+  slideActive = document.querySelector('.swiper-slide-active');
+  console.log('클릭 시 active 번호',slideActive.dataset.seq);
+
+  challengeArray.forEach((el)=>{
+    if(slideActive.dataset.seq == el.seq){
+      console.log('같음');
+    }
+  })
+
+
   inputAmount = selectAmount.value; //전체 금액
   let inputAmountValue = inputAmount.replace(/,/g, ""); //숫자
 
@@ -199,6 +218,9 @@ const remainingAmountCalc = () => {
 //사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
 spendAmountBtn.addEventListener("click", () => {
   challengeSpend.classList.remove("spend_on");
+  //해당 슬라이드가 swiper-active일때 seq번호를 비교해서 해당 배열에서만 금액 빠지게 swiper-slide-active
+
+
   remainingAmountCalc();
 });
 
@@ -210,14 +232,15 @@ let challengeDates = [];
 
 const createChallenge = () => {
   challengeWrap.innerHTML = '';
+
   localSave();
   console.log("저장함 ",challengeArray);
   //로컬스토리지에서 값 빼오기
   console.log('빼옴',challengeArray);
 
-  challengeArray.forEach((el)=> {
-    console.log('el',el); 
+  let seqNum = 0;
 
+  challengeArray.forEach((el)=> {
     let today = new Date();
     let endDday = new Date(el.endDate);
     let endGap = endDday.getTime() - today.getTime();
@@ -225,6 +248,7 @@ const createChallenge = () => {
 
     let challengeInner = document.createElement("div");
     challengeInner.classList.add("challenge_inner", "swiper-slide");
+    challengeInner.setAttribute("data-seq", ++seqNum);
   
     challengeInner.innerHTML = `
     <div class="challenge_info">
@@ -256,15 +280,26 @@ const createChallenge = () => {
     `;
 
     challengeWrap.append(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
+    console.log()
+
     curAmount = document.querySelector(".cur_amount"); //잔여 예산 */
   
     $("#datepicker_start").datepicker("setDate", "");
     $("#datepicker_end").datepicker("setDate", "");
 
+
    swiper.update(); // 슬라이드 요소 업데이트
   })
-
-  
-  /*   selectAmount.value = ""; */
-
 };
+
+window.addEventListener("load",()=>{
+  if(challengeArray.length > 0) {
+    mainChallenge.style.display = "block";
+    mainBox.style.display = "none";
+      createChallenge();
+    
+  } else {
+    mainChallenge.style.display = "none";
+    mainBox.style.display = "flex";
+  }
+})
