@@ -76,6 +76,7 @@ let swiper = new Swiper(".challenge_swiper", {
   },
 });
 
+
 //로컬 저장된 값 없는 경우 mainBox display:flex
 //로컬 저장된 값 있는 경우 mainChallenge display:block;
 
@@ -191,9 +192,9 @@ const remainingAmountCalc = () => {
         spendAmount: spendAmountValue,
         spendDate: spendDate,
       };
-      if (el.userSpendList == "") {
+      if (el.userSpendList == "") { //사용금액이 비어있는 경우 로컬에 배열 저장
         el.userSpendList = [spendItem];
-      } else {
+      } else {//사용 금액있는 경우 기존 배열 전체 가져와서 현재 사용 금액 추가 저장
         el.userSpendList = [...el.userSpendList, spendItem];
       }
       let spendAmountArr = [
@@ -205,18 +206,18 @@ const remainingAmountCalc = () => {
       let spendAmountSum = spendAmountArrNum.reduce((a, b) => a + b); //사용 금액 합계
 
       el.remainingAmount = amountValue - spendAmountSum; //잔여 금액
+      save();
 
-      //사용퍼센트 구해서 스타일 적용
       let remainingPercentage = (el.remainingAmount / amountValue) * 100; //잔여금액 퍼센트
       let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
       let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
       let strokeDashOffsetCalc = `calc(720 - (720 * ${
-        1 - strokeDashOffsetPercentage
-      }))`;
-      //calc 값 구함
-
+      1 - strokeDashOffsetPercentage
+    }))`;
+    //calc 값 구함
       el.offset = strokeDashOffsetCalc;
-      save();
+      save(); //로컬스토리지 업데이트
+      console.log('el.remainingAmount///',el.offset);
       barOffset();
       curAmount = document.querySelector(".swiper-slide-active .cur_amount");
       curAmount.innerHTML = `${el.remainingAmount.toLocaleString()}원`;
@@ -225,22 +226,24 @@ const remainingAmountCalc = () => {
   });
 };
 
-//로컬에서 offset 값 가져와서 bar.style 조정
-const barOffset = () => {
-  let bar = document.querySelector(".swiper-slide-active .bar");
-  let barOffsetValue = JSON.parse(localStorage.getItem("challengeData"));
+//offset 만큼 bar스타일 적용
+const barOffset= () => {
+  const activeSlideIndex = swiper.realIndex; //현재 슬라이드 인덱스 구함
+  const activeSlide = swiper.slides[activeSlideIndex];//모든 슬라이드에서 현재 인덱스 찾음
+  const bar = activeSlide.querySelector(".bar");//현재 슬라이드에서 bar요소 찾음
+  challengeArray.forEach((el)=>{//전체 배열 반복문으로 bar의 id값과 배열 seq값 동일한 것만 스타일 적용
+    if(el.seq == bar.id){
+      bar.style.strokeDashoffset = el.offset;
+    }
+  })
+}
 
-  barOffsetValue.forEach((el) => {
-    console.log("barrrrr", bar);
-    bar.style.strokeDashoffset = el.offset;
-  });
-  console.log("슬라이드 변경");
-};
+
 
 //사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
 spendAmountBtn.addEventListener("click", () => {
   challengeSpend.classList.remove("spend_on");
-  remainingAmountCalc();
+  remainingAmountCalc();//잔여 금액 계산
 });
 
 //챌린지 생성 함수
@@ -262,7 +265,7 @@ const createChallenge = () => {
     challengeInner.setAttribute("data-seq", ++seqNum);
 
     challengeInner.innerHTML = `
-    <div class="challenge_info" id=${seqNum}>
+    <div class="challenge_info">
       <p class="info_date">${el.startDate} ~ ${el.endDate}</p>
       <p class="info_dday">챌린지 종료까지<span class="calc_dday">${result.toString()}일</span>남았어요</p>
       <div class="progress">진행중</div>
@@ -272,7 +275,7 @@ const createChallenge = () => {
         <div class="circle_outer">
           <div class="circle_inner">
             <div class="circle_number">
-              <div class="cur_amount">${el.remainingAmount}원</div>
+              <div class="cur_amount">${el.remainingAmount.toLocaleString()}원</div>
               <div class="pre_amount">￦${el.amount}</div>
             </div>
           </div>
@@ -284,7 +287,7 @@ const createChallenge = () => {
                 <stop offset="100%" stop-color="rgb(211, 225, 252)" />
             </linearGradient>
           </defs>
-          <circle class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
+          <circle  id=${seqNum} class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
         </svg>
       </div>
     </div>
@@ -303,15 +306,16 @@ window.addEventListener("load", () => {
   if (challengeArray.length > 0) {
     mainChallenge.style.display = "block";
     mainBox.style.display = "none";
-    createChallenge();
-    barOffset();
+    createChallenge();//함수생성
+    localSave();//seq 숫자 연결되어 1씩 증가하도록
+    barOffset();//bar style 유지
   } else {
     mainChallenge.style.display = "none";
     mainBox.style.display = "flex";
-    barOffset();
   }
 });
 
-swiper.on("slideChange", () => {
+swiper.on("slideChange",function(){
   barOffset();
-});
+})
+
