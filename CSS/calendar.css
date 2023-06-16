@@ -11,7 +11,7 @@
 .year_month{font-size: 1.2rem; font-weight: 700;}
 .cal_nav{text-align: center;padding-bottom: 30px;}
 
-.cal_nav_btn {position:relative;vertical-align: middle; border: none; cursor: pointer; background: transparent; padding:0 15px;}
+.cal_nav_btn {position:relative;vertical-align: middle; border: none; cursor: pointer; background: transparent; padding:0 15px; color:#000;}
 
 .cal_nav_btn.prev:before{position: absolute;top:50%; left:0; transform: translateY(-50%); font-weight: 900;font-family: "Font Awesome 6 Free";content: "\f104"; font-size: 1.2rem;}
 
