@@ -374,34 +374,61 @@ headerList.addEventListener("click", function () {
   challengeList.style.display = "block";
   challengeCal.style.display = "none";
   challengeSet.style.display = "none";
-  createChllengeList();
-  console.log("클릭!!!", challengeListLi);
-  createSpendList();
+  createChllengeList(); //관리 - 목록 생성
 
-  challengeListLi.forEach((list, index) => {
+  challengeListLi.forEach((list) => {
+    //생성된 li들 반복문 돌려야함
     list.addEventListener("click", () => {
-      console.log("ddddd", challengeArray);
-
-      //사용 내역 보이는 함수
+      //해당 li 클릭하면
+      console.log("클릭했다고", list);
+      //로컬배열 중에서 seq같은거 찾아냄
+      challengeArray.forEach((el) => {
+        console.log("222", el.seq);
+        if (el.seq == list.dataset.seq) {
+          console.log("el.seq", el.seq);
+          console.log("list.dataset.seq", list.dataset.seq);
+          //사용내역 보이는 함수 발생
+          createSpendList();
+        } else {
+          console.log("다름");
+        }
+      });
     });
   });
 });
 const detailInner = document.querySelector(".detail_inner");
+let challengeListLi;
+
+//클릭했을때 발생
 const createSpendList = () => {
-  console.log(challengeArray[0].userSpendList);
+  //userSpendList 각 값 배열로 만들기
   detailInner.innerHTML = "";
-  challengeArray.forEach((el, index) => {
+  challengeArray.forEach((el, i) => {
+    let spendAmountList = []; //사용한 금액 목록
+    let spendDateList = []; //사용한 날짜 목록
+    let spendItemList = []; //사용한 내역 목록
+
+    el.userSpendList.forEach((item) => {
+      spendAmountList.push(item.spendAmount);
+      spendDateList.push(item.spendDate);
+      spendItemList.push(item.spendItem);
+    });
     let createDiv = document.createElement("div");
     createDiv.classList.add("detail_box");
+
+    console.log("spendAmountList", spendAmountList);
+    console.log("spendDateList", spendDateList);
+    console.log("spendItemList", spendItemList);
+
     createDiv.innerHTML = `
-    <div class="detail_box">
-      <p></p>
-      <div class="detail_cont">
-        <p>사용 내용</p>
-        <p>사용 금액</p>
+      <div class="detail_box">
+        <p>${spendAmountList[i]}</p>
+        <div class="detail_cont">
+          <p>사용 내용</p>
+          <p>사용 금액</p>
+        </div>
       </div>
-    </div>
-    `;
+      `;
     detailInner.append(createDiv);
   });
 };
@@ -424,7 +451,8 @@ headerSet.addEventListener("click", function () {
 const challengeListUl = document.querySelector(
   ".main_challenge_list .challenge_inner"
 );
-let challengeListLi;
+
+let listNum = 0;
 const createChllengeList = () => {
   challengeListUl.innerHTML = "";
 
@@ -439,6 +467,7 @@ const createChllengeList = () => {
   challengeArray.forEach((el, index) => {
     let createLi = document.createElement("li");
     createLi.classList.add("challenge_info");
+    createLi.setAttribute("data-seq", ++listNum);
     createLi.innerHTML = `
                     <p class="info_date">${el.startDate}~${el.endDate}</p>
                     <div class="list_amout">
@@ -458,4 +487,5 @@ const createChllengeList = () => {
     );
     console.log("ssssss", challengeListLi);
   });
+  listNum = 0;
 };
