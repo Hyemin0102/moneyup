@@ -8,16 +8,31 @@
 body {
   font-family: "Pretendard", Geneva, Tahoma, sans-serif;
 }
-
-
 #container {position: relative; max-width: 640px; min-width: 320px; height: 100vh;margin: auto;}
 #container header {position:fixed; z-index:9999; top: 0; background-color: var(--main-purple);max-width: 640px;min-width: 320px;height: 120px; width: 100%;border-radius: 0 0 40px 40px;}
 .header_inner {padding: 30px; height: 100%;}
 .header_inner h1 {text-align: center; font-size: 1.5rem; font-weight: bold; color:#fff; font-family: Inter;}
 .header_inner ul {display: flex; padding-top: 30px;}
-.header_inner ul > li { flex:1; padding: 5px 0; text-align: center;}
+.header_inner ul > li { flex: 1;
+  padding: 5px 0;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  position: relative;}
 
-.header_inner ul > li > a {position: relative; color: #fff; display: inline-block; padding: 0 10px; font-weight: 600; letter-spacing: 1px}
+  .header_inner ul li:before{position: absolute;
+    content: "";
+    bottom: -15px;
+    left: 5px;
+    width: 0;
+    height: 5px;
+    background-color: #222222;
+    transition: 0.3s ease-in-out;
+    border-radius: 999px;}
+
+.header_inner ul li.active:before{width:90%;} 
+
 .header_top{display: flex;}
 .gnb_btn {position: absolute;width: 20px;
   height: 25px;
@@ -31,11 +46,11 @@ body {
   .gnb_btn > span::before { top: -7px; }
   .gnb_btn > span::after { top:7px;}
 
-/* .header_inner ul > li > a:before{position: absolute; content: ""; bottom: -17px; left:0; width:0; height: 4px; background-color:#222222; transition: 0.3s ease-in-out; border-radius: 999px;}
-
-.header_inner ul > li.active > a:before{width:100%;} */
-
-main{padding-top: 120px; position: relative;}
+section{padding-top: 120px; position: absolute; background-color: #fff; height: 100vh; width:100%;}
+section.challenge_main {display: block;}
+section.challenge_list {display: none;}
+section.challenge_cal {display: none;}
+section.challenge_set {display: none;}
 
 .main_wrap{position: relative; padding: 20px 30px 30px 30px; height: 100%;}
 .main_wrap > .main_inner h2{font-weight: 700; font-size: 20px; padding-bottom: 20px;}
@@ -50,7 +65,7 @@ main{padding-top: 120px; position: relative;}
 .main_challenge{display: none; padding-bottom: 20px}
 
 /* swiper*/
-.swiper{padding-bottom: 30px;}
+.swiper{padding-bottom: 30px; cursor: pointer;}
 .challenge_wrap{}
 .challenge_inner{padding:20px;background: #fff;}
 .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{background-color:var(--main-purple)}
@@ -130,11 +145,7 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
                 0.5px 0.5px 0px rgba(0,0,0,0.15),
                 0px 12px 10px -10px rgba(0,0,0,0.05)
     ;} */
-
-
-
-
-/* 챌린지 기간 추가 */
+/*챌린지 기간 추가 */
 .challenge_date, .challenge_amount{ position:absolute; z-index:10; width:0; overflow: hidden; top:0; left:0; height:100%; background-color: #fff; display: flex;justify-content: center; padding-top:10%; transition: all 0.3s;}
 .challenge_date.calendar_on {width:100%; overflow: auto;}
 .challenge_date_btn,.challenge_amount_btn {width:100px;line-height: 36px;}
@@ -208,18 +219,6 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
   .ui-widget-header .ui-state-highlight {border-radius: 50%;} 
 /*datepicker - end*/
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* 챌린지 금액 추가 */
 
 .challenge_amount.amount_on {width:100%; overflow: auto;}
@@ -234,6 +233,33 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
 .amount_box_inner > span:nth-child(1){width:15%;opacity: 0.6;font-size: 0.9rem;}
 
 
+/* section - challenge_list */
+.challenge_list .challenge_inner {padding:0;}
+.challenge_list .list_amout {    display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 10px;
+  font-weight: 600;
+  align-items: center;}
+  .list_cur_amount{font-size: 18px;}
+  .list_prev_amount{color: var(--main-purple);}
+
+  .challenge_list .info_dday {font-size: 18px;}
+  .challenge_list .info_dday > span {color:#F2663B}
+
+  .challenge_list .challenge_info {margin-bottom:20px;}
+  .main_challenge_detail{
+    position: absolute;
+    border: 1px solid red;
+   /*  top: 0; */
+    left: 0;
+    background-color: #fff; height: 100%; width: 100%;
+    padding: 20px;
+  }
+  .detail_inner{border: 1px solid black; padding: 10px;}
+  .detail_box {border:1px solid pink ;}
+  .detail_cont {display: flex;justify-content: space-between;
+    align-items: center;}
 
 
 

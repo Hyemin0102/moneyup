@@ -1,12 +1,10 @@
-.calendar_wrap{margin-top: 120px;}
+
 
 .calendar{box-shadow: var(--main-box);
-  border-radius: 20px;
   background-color: #fff;
   min-height: 400px;
   padding: 20px;
-  margin: 0 20px;
-  margin-top: 170px;}
+}
 
 
 .cal_header{}
