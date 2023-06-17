@@ -9,7 +9,7 @@ body {
   font-family: "Pretendard", Geneva, Tahoma, sans-serif;
 }
 #container {position: relative; max-width: 640px; min-width: 320px; height: 100vh;margin: auto;}
-#container header {position:fixed; z-index:9999; top: 0; background-color: var(--main-purple);max-width: 640px;min-width: 320px;height: 120px; width: 100%;border-radius: 0 0 40px 40px;}
+#container header {position:absolute; z-index:9999; top: 0; background-color: var(--main-purple);max-width: 640px;min-width: 320px;height: 120px; width: 100%;border-radius: 0 0 40px 40px;}
 .header_inner {padding: 30px; height: 100%;}
 .header_inner h1 {text-align: center; font-size: 1.5rem; font-weight: bold; color:#fff; font-family: Inter;}
 .header_inner ul {display: flex; padding-top: 30px;}
@@ -47,12 +47,12 @@ body {
   .gnb_btn > span::after { top:7px;}
 
 section{padding-top: 120px; position: absolute; background-color: #fff; height: 100vh; width:100%;}
-section.challenge_main {display: block;}
-section.challenge_list {display: none;}
-section.challenge_cal {display: none;}
-section.challenge_set {display: none;}
+section.challenge_main {display: block;overflow: auto}
+section.challenge_list {display: none; overflow: auto}
+section.challenge_cal {display: none;overflow: auto }
+section.challenge_set {display: none;overflow: auto }
 
-.main_wrap{position: relative; padding: 20px 30px 30px 30px; height: 100%;}
+.main_wrap{position: relative; padding: 20px 30px 30px 30px;;}
 .main_wrap > .main_inner h2{font-weight: 700; font-size: 20px; padding-bottom: 20px;}
 .main_box{display: flex; flex-direction: column;padding: 30px;text-align: center;gap: 70px;box-shadow: var(--main-box); border-radius: 50px; min-height: 400px;}
 .main_box_inner{font-weight: 700;font-size: 18px;line-height: 1.3;letter-spacing: 0.5px;}
@@ -67,7 +67,7 @@ section.challenge_set {display: none;}
 /* swiper*/
 .swiper{padding-bottom: 30px; cursor: pointer;}
 .challenge_wrap{}
-.challenge_inner{padding:20px;background: #fff;}
+.challenge_inner{padding:10px;background: #fff;}
 .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{background-color:var(--main-purple)}
 
 .challenge_info{position:relative;background: #fff;
@@ -129,8 +129,8 @@ section.challenge_set {display: none;}
     .spend_box_inner input {-webkit-appearance: none;appearance: none;border: none;outline: none;
 box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;padding: 10px;border-radius: 8px;width: 60%;font-family: 'Pretendard';font-size: 1rem;}
 
-  .spend_amount_close{position: absolute;top: 10px;right: 10px;border: none;background: transparent;}
-    .spend_amount_close i {color:gray;font-size: 1.2rem;}
+  .spend_amount_close, .detail_close_btn{position: absolute;top: 10px;right: 10px;border: none;background: transparent;}
+    .spend_amount_close i, .detail_close_btn i {color:gray;font-size: 1.2rem;}
       
 
 /*   .circle_outer{height: 250px; width: 250px; border-radius: 50%; padding:25px;
@@ -146,7 +146,7 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
                 0px 12px 10px -10px rgba(0,0,0,0.05)
     ;} */
 /*챌린지 기간 추가 */
-.challenge_date, .challenge_amount{ position:absolute; z-index:10; width:0; overflow: hidden; top:0; left:0; height:100%; background-color: #fff; display: flex;justify-content: center; padding-top:10%; transition: all 0.3s;}
+.challenge_date, .challenge_amount{ position:absolute; z-index:10; width:0; overflow: hidden; top:0; left:0; height:100vh; background-color: #fff; display: flex;justify-content: center; padding-top:10%; transition: all 0.3s;}
 .challenge_date.calendar_on {width:100%; overflow: auto;}
 .challenge_date_btn,.challenge_amount_btn {width:100px;line-height: 36px;}
 
@@ -235,31 +235,42 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
 
 /* section - challenge_list */
 .challenge_list .challenge_inner {padding:0;}
-.challenge_list .list_amout {    display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding-top: 10px;
-  font-weight: 600;
-  align-items: center;}
-  .list_cur_amount{font-size: 18px;}
-  .list_prev_amount{color: var(--main-purple);}
+.challenge_list .list_amout {display: inline-block;padding-top: 10px; font-weight: 600;}
+  .list_amount_text{color: darkgray;font-size: 14px;}
+  .list_amount_Num{color: var(--main-purple);}
+  .list_amount_Num::before{position:absolute;content: "\f105";font-family: "Font Awesome 6 Free";font-weight: 900;right: 10px;}
 
-  .challenge_list .info_dday {font-size: 18px;}
+  .challenge_list .info_dday {font-size: 16px;justify-content: start;}
   .challenge_list .info_dday > span {color:#F2663B}
 
-  .challenge_list .challenge_info {margin-bottom:20px;}
+  .challenge_list .challenge_info {position: relative; margin-bottom:20px;}
   .main_challenge_detail{
     position: absolute;
-    border: 1px solid red;
-   /*  top: 0; */
-    left: 0;
+    top: 0;
+    left: 100%;
     background-color: #fff; height: 100%; width: 100%;
     padding: 20px;
+    transition: 0.3s ease-in-out;
   }
-  .detail_inner{border: 1px solid black; padding: 10px;}
-  .detail_box {border:1px solid pink ;}
+  .detail_inner{}
+  .detail_box {margin: 15px 0; padding: 10px; box-shadow: var(--main-box);border-radius: 8px; font-weight: 700;}
+  .detail_box > p {padding-bottom: 10px;font-size: 14px;}
   .detail_cont {display: flex;justify-content: space-between;
-    align-items: center;}
+    align-items: center;font-weight: 700;}
+    .detail_cont > p:last-child {color: var(--main-purple);}
+
+.list_prev_amount{top: 6px;
+  position: absolute;
+  right: 10px;
+  font-size: 13px;
+  background: var(--main-blue);
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-weight: 500;}
+
+
+
+
 
 
 
