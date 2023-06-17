@@ -9,7 +9,7 @@ body {
   font-family: "Pretendard", Geneva, Tahoma, sans-serif;
 }
 #container {position: relative; max-width: 640px; min-width: 320px; height: 100vh;margin: auto;}
-#container header {position:absolute; z-index:9999; top: 0; background-color: var(--main-purple);max-width: 640px;min-width: 320px;height: 120px; width: 100%;border-radius: 0 0 40px 40px;}
+#container header {position:absolute; z-index:100; top: 0; background-color: var(--main-purple);max-width: 640px;min-width: 320px;height: 120px; width: 100%;border-radius: 0 0 40px 40px;}
 .header_inner {padding: 30px; height: 100%;}
 .header_inner h1 {text-align: center; font-size: 1.5rem; font-weight: bold; color:#fff; font-family: Inter;}
 .header_inner ul {display: flex; padding-top: 30px;}
@@ -45,6 +45,7 @@ body {
   .gnb_btn > span::after { position: absolute; width: 100%; height: 2px; background: #fff; content: ""; }
   .gnb_btn > span::before { top: -7px; }
   .gnb_btn > span::after { top:7px;}
+
 
 section{padding-top: 120px; position: absolute; background-color: #fff; height: 100vh; width:100%;}
 section.challenge_main {display: block;overflow: auto}
@@ -131,7 +132,7 @@ section.challenge_set {display: none;overflow: auto }
 box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;padding: 10px;border-radius: 8px;width: 60%;font-family: 'Pretendard';font-size: 1rem;}
 
   .spend_amount_close, .detail_close_btn{position: absolute;top: 10px;right: 10px;border: none;background: transparent;}
-    .spend_amount_close i, .detail_close_btn i {color:gray;font-size: 1.2rem;}
+    .spend_amount_close i, .detail_close_btn i {color:gray;font-size: 1.5rem;}
       
 
 /*   .circle_outer{height: 250px; width: 250px; border-radius: 50%; padding:25px;
