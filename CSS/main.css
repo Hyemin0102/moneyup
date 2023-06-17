@@ -49,6 +49,7 @@ body {
 section{padding-top: 120px; position: absolute; background-color: #fff; height: 100vh; width:100%;}
 section.challenge_main {display: block;overflow: auto}
 section.challenge_list {display: none; overflow: auto}
+section.challenge_list > .main_wrap {overflow-x: hidden;}
 section.challenge_cal {display: none;overflow: auto }
 section.challenge_set {display: none;overflow: auto }
 
