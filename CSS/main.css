@@ -19,7 +19,9 @@ body {
   color: #fff;
   font-weight: 600;
   letter-spacing: 1px;
-  position: relative;}
+  position: relative;
+  cursor: pointer;
+}
 
   .header_inner ul li:before{position: absolute;
     content: "";
