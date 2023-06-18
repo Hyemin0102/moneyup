@@ -1,3 +1,17 @@
+//메뉴 클릭
+const menuBtn = document.querySelectorAll(".header_inner > ul > li");
+console.log('menuBtn',menuBtn);
+
+menuBtn.forEach((el) => {
+  el.addEventListener("click", function (e) {
+    menuBtn.forEach((item) => {
+      item.classList.remove("active");
+    });
+    el.classList.add("active");
+    
+  });
+});
+
 let startDate;
 let endDate;
 let startDateString;
@@ -78,17 +92,24 @@ let swiper = new Swiper(".challenge_swiper", {
 
 const plusBtn = document.querySelectorAll(".main_plus_btn");
 const challengeDate = document.querySelector(".challenge_date");
+const dateCloseBtn = document.querySelector('.date_close');
 
 plusBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     challengeDate.classList.add("calendar_on");
   });
 });
+dateCloseBtn.addEventListener('click',()=>{
+  challengeDate.classList.remove("calendar_on");
+  document.querySelector('#datepicker_start').value = "";
+  document.querySelector('#datepicker_end').value = "";
+})
 
 //기간 선택 후 확인 버튼 클릭
 const dateBtn = document.querySelector(".challenge_date_btn");
 const challengeAmount = document.querySelector(".challenge_amount");
 const selectedDate = document.getElementById("selectedDate");
+
 
 dateBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -100,14 +121,21 @@ dateBtn.addEventListener("click", (e) => {
   }
 });
 
+
 //금액 입력 후 확인 버튼 클릭
 const amountBtn = document.querySelector(".challenge_amount_btn");
+const amountCloseBtn = document.querySelector(".amount_close");
 
 const selectAmount = document.getElementById("selectAmount");
 const spendAmount = document.getElementById("spendAmount");
 
 const mainChallenge = document.querySelector(".main_challenge");
 const mainBox = document.querySelector(".main_box");
+
+amountCloseBtn.addEventListener('click',()=>{
+  challengeAmount.classList.remove("amount_on");
+  selectAmount.value = ""; //input value 초기화
+})
 
 //챌린지 금액 입력, 3자리 수 콤마
 const addComma = (e) => {
@@ -127,11 +155,11 @@ const save = () => {
 };
 
 //datepicker 날짜 로컬스토리지 저장
-let num = 0;
+let num = 1
 
 const localSave = () => {
   const challengeObj = {
-    seq: ++num,
+    seq: num++,
     startDate: startDate,
     endDate: endDate,
     amount: selectAmount.value,
@@ -379,8 +407,8 @@ headerList.addEventListener("click", function () {
   challengeList.style.display = "block";
   challengeCal.style.display = "none";
   challengeSet.style.display = "none";
+  if(localStorage.getItem("challengeData")){
   createChllengeList(); //관리 - 목록 생성
-
   challengeListLi.forEach((list) => {
     //생성된 li들 반복문 돌려야함
     list.addEventListener("click", () => { //해당 li 클릭하면 로컬배열 중에서 seq같은거 찾아냄
@@ -424,11 +452,10 @@ headerList.addEventListener("click", function () {
             }
         } 
       });
-      //사용 내역 창 보이게
-      
-
     });
-  });
+  })
+  document.querySelector('.main_challenge_empty').style.display = "none";
+  }
 });
 
 let challengeListLi;
