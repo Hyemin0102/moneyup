@@ -106,15 +106,17 @@ section.challenge_set {display: none;overflow: auto }
     box-shadow:var(--main-box)
     ;}
     .circle_number{
-      display: flex; flex-direction:column; align-items: center; gap:20px; justify-content: center;width: 130px; height: 130px; border-radius: 50%;box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.1), 0px 0px 10px -1px rgba(0,0,0,0.1)
+      display: flex; flex-direction:column; align-items: center; gap:20px; justify-content: center;width: 130px; height: 130px; border-radius: 50%;box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.1), 0px 0px 10px -1px rgba(0,0,0,0.1);text-align: center;
     }
     .circle_number>div:nth-child(1){font-weight: bold;}
     .circle_number>div:nth-child(2){box-shadow: var(--main-box); font-size: 12px; padding:5px 8px; border-radius: 8px;}
 
   circle{
-    fill: none; stroke: url(#GradientColor); stroke-width: 25px; 
+    fill: none; 
+    stroke: url(#GradientColor);
+    stroke-width: 25px; 
     stroke-dasharray: 720;
-    stroke-dashoffset:calc(720 - (720 * 1));
+    stroke-dashoffset: calc(720 - (720 * 1));
     transition: 1s; 
   }
   

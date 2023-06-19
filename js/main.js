@@ -1,6 +1,6 @@
 //메뉴 클릭
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");
-console.log('menuBtn',menuBtn);
+console.log("menuBtn", menuBtn);
 
 menuBtn.forEach((el) => {
   el.addEventListener("click", function (e) {
@@ -8,7 +8,6 @@ menuBtn.forEach((el) => {
       item.classList.remove("active");
     });
     el.classList.add("active");
-    
   });
 });
 
@@ -92,24 +91,23 @@ let swiper = new Swiper(".challenge_swiper", {
 
 const plusBtn = document.querySelectorAll(".main_plus_btn");
 const challengeDate = document.querySelector(".challenge_date");
-const dateCloseBtn = document.querySelector('.date_close');
+const dateCloseBtn = document.querySelector(".date_close");
 
 plusBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     challengeDate.classList.add("calendar_on");
   });
 });
-dateCloseBtn.addEventListener('click',()=>{
+dateCloseBtn.addEventListener("click", () => {
   challengeDate.classList.remove("calendar_on");
-  document.querySelector('#datepicker_start').value = "";
-  document.querySelector('#datepicker_end').value = "";
-})
+  document.querySelector("#datepicker_start").value = "";
+  document.querySelector("#datepicker_end").value = "";
+});
 
 //기간 선택 후 확인 버튼 클릭
 const dateBtn = document.querySelector(".challenge_date_btn");
 const challengeAmount = document.querySelector(".challenge_amount");
 const selectedDate = document.getElementById("selectedDate");
-
 
 dateBtn.addEventListener("click", (e) => {
   e.preventDefault();
@@ -121,7 +119,6 @@ dateBtn.addEventListener("click", (e) => {
   }
 });
 
-
 //금액 입력 후 확인 버튼 클릭
 const amountBtn = document.querySelector(".challenge_amount_btn");
 const amountCloseBtn = document.querySelector(".amount_close");
@@ -132,10 +129,10 @@ const spendAmount = document.getElementById("spendAmount");
 const mainChallenge = document.querySelector(".main_challenge");
 const mainBox = document.querySelector(".main_box");
 
-amountCloseBtn.addEventListener('click',()=>{
+amountCloseBtn.addEventListener("click", () => {
   challengeAmount.classList.remove("amount_on");
   selectAmount.value = ""; //input value 초기화
-})
+});
 
 //챌린지 금액 입력, 3자리 수 콤마
 const addComma = (e) => {
@@ -143,7 +140,14 @@ const addComma = (e) => {
   let value = inputEl.value;
   value = value.replace(/[^0-9]/g, ""); //숫자만 입력 제한
   value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); //3자리 수 콤마
-  inputEl.value = value;
+
+  const maxLength = 11; //억자리까지 입력
+  if (value.length > maxLength) {
+    alert("10자리 미만으로만 입력 가능합니다.");
+    inputEl.value = inputEl.value.slice(0, maxLength);
+  } else {
+    inputEl.value = value;
+  }
 };
 selectAmount.addEventListener("input", addComma);
 spendAmount.addEventListener("input", addComma);
@@ -155,7 +159,7 @@ const save = () => {
 };
 
 //datepicker 날짜 로컬스토리지 저장
-let num = 1
+let num = 1;
 
 const localSave = () => {
   const challengeObj = {
@@ -211,15 +215,14 @@ let slideActive;
 
 //전체 금액에서 잔여 금액 계산 함수
 const remainingAmountCalc = () => {
-  
   slideActive = document.querySelector(".swiper-slide-active");
   let seqActive = slideActive.dataset.seq; //현재 active slide의 seq 번호
-  
+
   let spendDate = new Date();
 
   challengeArray.forEach((el) => {
     if (seqActive == el.seq) {
-      console.log('작동해',el.seq)
+      console.log("작동해", el.seq);
       let amountValue = el.amount.replace(/,/g, ""); //콤마 제거
       let inputSpendAmount = spendAmount.value;
       let spendAmountValue = inputSpendAmount.replace(/,/g, ""); //숫자
@@ -243,19 +246,6 @@ const remainingAmountCalc = () => {
       let spendAmountSum = spendAmountArrNum.reduce((a, b) => a + b); //사용 금액 합계
 
       el.remainingAmount = amountValue - spendAmountSum; //잔여 금액
-      
-
-      if (el.remainingAmount > 0) {
-        //잔액이 0보다 작으면 save안되게(remaingAmout 줄어들게 됨)
-        save();
-      }
-
-      if (el.remainingAmount < 0) {
-        //잔액 없는 경우 함수종료
-        alert("잔여 금액이 부족합니다.");
-        curAmount.innerHTML = "0원";
-        return;
-      }
 
       let remainingPercentage = (el.remainingAmount / amountValue) * 100; //잔여금액 퍼센트
       let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
@@ -267,10 +257,24 @@ const remainingAmountCalc = () => {
       el.offset = strokeDashOffsetCalc;
       save(); //로컬스토리지 업데이트
       console.log("el.remainingAmount///", el.remainingAmount);
+
       barOffset();
       curAmount = document.querySelector(".swiper-slide-active .cur_amount");
       curAmount.innerHTML = `${el.remainingAmount.toLocaleString()}원`;
 
+      if (el.remainingAmount > 0) {
+        //잔액이 0보다 작으면 save안되게(remaingAmout 줄어들게 됨)
+        save();
+      }
+
+      if (el.remainingAmount < 0) {
+        //잔액 없는 경우 함수종료
+        console.log("잔여가 더 작음");
+        alert("잔여 금액이 부족합니다.");
+        el.remainingAmount = 0;
+        curAmount.innerHTML = "0원";
+        return;
+      }
       if (el.remainingAmount == 0) {
         alert(
           "챌린지 금액을 모두 사용하셨습니다. 새로운 챌린지를 추가해주세요."
@@ -352,7 +356,7 @@ const createChallenge = () => {
       </div>
     </div>
     `;
-    challengeWrap.append(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
+    challengeWrap.prepend(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
 
     $("#datepicker_start").datepicker("setDate", "");
     $("#datepicker_end").datepicker("setDate", "");
@@ -381,7 +385,7 @@ swiper.on("slideChange", function () {
 });
 
 //헤더 li 탭 클릭 시 화면
-const challengeDetailBox = document.querySelector('.main_challenge_detail');//챌린지 상세 내역
+const challengeDetailBox = document.querySelector(".main_challenge_detail"); //챌린지 상세 내역
 
 const headerMain = document.querySelector(".header_main");
 const headerList = document.querySelector(".header_list");
@@ -398,7 +402,7 @@ headerMain.addEventListener("click", function () {
   challengeList.style.display = "none";
   challengeCal.style.display = "none";
   challengeSet.style.display = "none";
-  challengeDetailBox.style.left = '100%';
+  challengeDetailBox.style.left = "100%";
 });
 
 /* 챌린지 관리 탭 클릭 시 */
@@ -407,32 +411,38 @@ headerList.addEventListener("click", function () {
   challengeList.style.display = "block";
   challengeCal.style.display = "none";
   challengeSet.style.display = "none";
-  if(localStorage.getItem("challengeData")){
-  createChllengeList(); //관리 - 목록 생성
-  challengeListLi.forEach((list) => {
-    //생성된 li들 반복문 돌려야함
-    list.addEventListener("click", () => { //해당 li 클릭하면 로컬배열 중에서 seq같은거 찾아냄
-      const detailInner = document.querySelector(".detail_inner");
-      detailInner.innerHTML = "";
+  if (localStorage.getItem("challengeData")) {
+    createChllengeList(); //관리 - 목록 생성
+    challengeListLi.forEach((list) => {
+      //생성된 li들 반복문 돌려야함
+      list.addEventListener("click", () => {
+        //해당 li 클릭하면 로컬배열 중에서 seq같은거 찾아냄
+        const detailInner = document.querySelector(".detail_inner");
+        detailInner.innerHTML = "";
 
-      challengeArray.forEach((el) => {
-        if (el.seq == list.dataset.seq) {
-            if(!el.userSpendList || el.userSpendList.length === 0){
-              alert('사용내역이 없습니다.')
-            }else {
+        challengeArray.forEach((el) => {
+          if (el.seq == list.dataset.seq) {
+            if (!el.userSpendList || el.userSpendList.length === 0) {
+              alert("사용내역이 없습니다.");
+            } else {
               let spendAmountList = []; //사용한 금액 목록
               let spendDateList = []; //사용한 날짜 목록
               let spendItemList = []; //사용한 내역 목록
-              
-              el.userSpendList.forEach((item) => { //클릭한 li의 사용금액, 날짜, 내역 따로 배열에 추가
+
+              el.userSpendList.forEach((item) => {
+                //클릭한 li의 사용금액, 날짜, 내역 따로 배열에 추가
                 spendAmountList.push(item.spendAmount);
                 spendDateList.push(item.spendDate);
                 spendItemList.push(item.spendItem);
               });
-              let formatSpendAmountList = spendAmountList.map((item)=>Number(item).toLocaleString());
-              let formatspendDateList = spendDateList.map((item)=>new Date(item).toISOString().split('T')[0]);
+              let formatSpendAmountList = spendAmountList.map((item) =>
+                Number(item).toLocaleString()
+              );
+              let formatspendDateList = spendDateList.map(
+                (item) => new Date(item).toISOString().split("T")[0]
+              );
 
-              for(let i =0; i < spendAmountList.length; i++){
+              for (let i = 0; i < spendAmountList.length; i++) {
                 let createDiv = document.createElement("div");
                 createDiv.classList.add("detail_box");
                 createDiv.innerHTML = `
@@ -442,19 +452,20 @@ headerList.addEventListener("click", function () {
                     <p>${formatSpendAmountList[i]}원</p>
                   </div>
                 `;
-              detailInner.append(createDiv);
+                detailInner.append(createDiv);
               }
-              challengeDetailBox.style.left = '0%';
-              const DetailBoxClose = document.querySelector('.detail_close_btn');
-              DetailBoxClose.addEventListener('click',()=>{
-                challengeDetailBox.style.left = '100%';
-              })
+              challengeDetailBox.style.left = "0%";
+              const DetailBoxClose =
+                document.querySelector(".detail_close_btn");
+              DetailBoxClose.addEventListener("click", () => {
+                challengeDetailBox.style.left = "100%";
+              });
             }
-        } 
+          }
+        });
       });
     });
-  })
-  document.querySelector('.main_challenge_empty').style.display = "none";
+    document.querySelector(".main_challenge_empty").style.display = "none";
   }
 });
 
@@ -465,7 +476,7 @@ headerCal.addEventListener("click", function () {
   challengeList.style.display = "none";
   challengeCal.style.display = "block";
   challengeSet.style.display = "none";
-  challengeDetailBox.style.left = '100%';
+  challengeDetailBox.style.left = "100%";
 });
 
 headerSet.addEventListener("click", function () {
@@ -473,7 +484,7 @@ headerSet.addEventListener("click", function () {
   challengeList.style.display = "none";
   challengeCal.style.display = "none";
   challengeSet.style.display = "block";
-  challengeDetailBox.style.left = '100%';
+  challengeDetailBox.style.left = "100%";
 });
 
 //챌린지 관리 탭 - 로컬값으로 생성
@@ -500,7 +511,9 @@ const createChllengeList = () => {
     createLi.innerHTML = `
                     <p class="info_date">${el.startDate}~${el.endDate}</p>
                     <p class="info_dday">
-                    챌린지 종료까지<span class="calc_dday">${ddayArrayItem[index]}</span>남았어요
+                    챌린지 종료까지<span class="calc_dday">${
+                      ddayArrayItem[index]
+                    }</span>남았어요
                     </p>
                     <div class="list_amout">
                       <span class="list_amount_text">잔여 금액</span>
@@ -508,7 +521,7 @@ const createChllengeList = () => {
                     </div>
                     <div class="list_prev_amount">${el.amount}원</div>
       `;
-    challengeListUl.append(createLi);
+    challengeListUl.prepend(createLi);
     challengeListLi = document.querySelectorAll(
       ".challenge_list .challenge_info"
     );
