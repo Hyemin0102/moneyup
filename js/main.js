@@ -1,6 +1,6 @@
 //메뉴 클릭
 const menuBtn = document.querySelectorAll(".header_inner > ul > li");
-console.log("menuBtn", menuBtn);
+//console.log("menuBtn", menuBtn);
 
 menuBtn.forEach((el) => {
   el.addEventListener("click", function (e) {
@@ -197,7 +197,7 @@ const spendAmountBtn = document.querySelector(".spend_amount_btn"); //입력 후
 const challengeSpend = document.querySelector(".challenge_spend");
 
 const spendCont = document.getElementById("spendCont");
-console.log("spendBtn", spendBtn);
+//console.log("spendBtn", spendBtn);
 
 spendBtn.addEventListener("click", () => {
   challengeSpend.classList.add("spend_on");
@@ -222,7 +222,7 @@ const remainingAmountCalc = () => {
 
   challengeArray.forEach((el) => {
     if (seqActive == el.seq) {
-      console.log("작동해", el.seq);
+      //console.log("작동해", el.seq);
       let amountValue = el.amount.replace(/,/g, ""); //콤마 제거
       let inputSpendAmount = spendAmount.value;
       let spendAmountValue = inputSpendAmount.replace(/,/g, ""); //숫자
@@ -256,7 +256,7 @@ const remainingAmountCalc = () => {
       //calc 값 구함
       el.offset = strokeDashOffsetCalc;
       save(); //로컬스토리지 업데이트
-      console.log("el.remainingAmount///", el.remainingAmount);
+      //console.log("el.remainingAmount///", el.remainingAmount);
 
       barOffset();
       curAmount = document.querySelector(".swiper-slide-active .cur_amount");
@@ -269,7 +269,7 @@ const remainingAmountCalc = () => {
 
       if (el.remainingAmount < 0) {
         //잔액 없는 경우 함수종료
-        console.log("잔여가 더 작음");
+        //console.log("잔여가 더 작음");
         alert("잔여 금액이 부족합니다.");
         el.remainingAmount = 0;
         curAmount.innerHTML = "0원";
