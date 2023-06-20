@@ -1,16 +1,17 @@
 # moneyup
-html, css, javascript를 이용한 개인 프로젝트입니다.
+챌린지 형식의 가계부 모바일 웹&앱 사이트
 
 ## 🔎프로젝트 소개
-챌린지 형식의 가계부 모바일 웹&앱 사이트입니다.
-
 사용자의 소비 내역을 기록하며 소비 의식을 높이고,
 
 이를 직관적으로 보여주는 UI/UX를 이용하여 웹 사용에 흥미를 느낄 수 있도록 제작하였습니다.
 
 
-## ⏳프로젝트 기간
+## ⏳개발 기간
 2023.05.29 ~ 2023.06.19 (약 3주)
+
+## ⚙개발 환경
+Javascript, jQuery(datepicker UI), Swiper
 
 ## 🚩주요 기능
 * 사용자가 원하는 기간, 금액 설정(제이쿼리 UI이용) 챌린지 생성(챌린지 다중 생성 시 슬라이드 생성)
@@ -19,6 +20,35 @@ html, css, javascript를 이용한 개인 프로젝트입니다.
 * 관리 탭에서 local storage 데이터를 이용해 현재 챌린지 리스트 연동되어 생성
 * 챌린지 리스트 클릭 시 local storage 저장 된 사용 데이터 불러와 사용 내역 생성
 
-## 어려웠던 점 및 개선 방향
+## 📌코드 리뷰
+로컬스토리지 저장 함수를 이용하여 data 활용
+```
+let challengeArray = JSON.parse(localStorage.getItem("challengeData")) || [];
 
-## 프로젝트를 마치며
+const save = () => {
+  localStorage.setItem("challengeData", JSON.stringify(challengeArray));
+};
+let num = 1;
+
+const localSave = () => {
+  const challengeObj = {
+    seq: num++,
+    startDate: startDate,
+    endDate: endDate,
+    amount: selectAmount.value,
+    remainingAmount: selectAmount.value,
+    userSpendList: "",
+  };
+  if (startDate != null) {
+    //입력한 값이 있는 경우만 local 저장
+    challengeArray.push(challengeObj);
+    save(); //로컬스토리지에 challengeArray배열 저장
+  }
+};
+```
+## 😊프로젝트를 마치며
+> 로컬스토리지에 데이터 저장 시 단순 값 뿐만 아니라 배열형태를 저장하여, 로컬 스토리지 > value > 배열 > key, value 값까지 접근하는 방법에 대해 공부하였습니다.
+경우에 따라 데이터를 저장하고 필요한 값만 데이터 추출해오는 방법에 대해 배웠으며, 실제 사용자가 사용하는 경우를 고려하여 사용 편리성을 높이기 위해
+UI/UX를 고려하였습니다.
+프로젝트를 진행하며 ios/safari의 크로스 브라우징에 대해서 고민을 많이 하였는데 이 부분은 앞으로 더욱 공부하여 개선해 나가야겠습니다. 
+
