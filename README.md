@@ -23,7 +23,7 @@ Javascript, jQuery(datepicker UI), Swiper
 
 ## 📌코드 리뷰
 로컬스토리지 저장 함수를 이용하여 data 활용
-```
+```javascript
 let challengeArray = JSON.parse(localStorage.getItem("challengeData")) || [];
 
 const save = () => {
