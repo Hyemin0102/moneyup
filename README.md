@@ -1,3 +1,5 @@
+<img width="40%" src="https://github.com/Hyemin0102/moneyup/assets/128768462/afe4c0c0-ba24-41ec-ac8e-93646da7c05a">
+
 # moneyup
 챌린지 형식의 가계부 모바일 웹&앱 사이트
 
