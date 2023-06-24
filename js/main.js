@@ -253,49 +253,42 @@ const remainingAmountCalc = () => {
       let strokeDashOffsetCalc = `calc(720 - (720 * ${
         1 - strokeDashOffsetPercentage
       }))`;
-      //calc 값 구함
+
       el.offset = strokeDashOffsetCalc;
-      save(); //로컬스토리지 업데이트
-      //console.log("el.remainingAmount///", el.remainingAmount);
-
-      barOffset();
       curAmount = document.querySelector(".swiper-slide-active .cur_amount");
-      curAmount.innerHTML = `${el.remainingAmount.toLocaleString()}원`;
 
-      if (el.remainingAmount > 0) {
-        //잔액이 0보다 작으면 save안되게(remaingAmout 줄어들게 됨)
+      if (el.remainingAmount >= 0) {
+        //잔액이 0보다 크거나 같으면
         save();
-      }
-
-      if (el.remainingAmount < 0) {
-        //잔액 없는 경우 함수종료
-        //console.log("잔여가 더 작음");
+        curAmount.innerHTML = `${el.remainingAmount.toLocaleString()}원`;
+        barOffset();
+        if(el.remainingAmount == 0){
+          alert("챌린지 금액을 모두 사용하셨습니다. 새로운 챌린지를 등록해주세요.");
+        }
+      } else { //잔액이 0보다 작으면
         alert("잔여 금액이 부족합니다.");
         el.remainingAmount = 0;
+        el.offset = 'calc(720 - (720 *0)';
+        save();
         curAmount.innerHTML = "0원";
-        return;
-      }
-      if (el.remainingAmount == 0) {
-        alert(
-          "챌린지 금액을 모두 사용하셨습니다. 새로운 챌린지를 추가해주세요."
-        );
+        barOffset();
       }
     }
   });
 };
 
-//offset 만큼 bar스타일 적용
-const barOffset = () => {
+const barOffset=()=>{
   const activeSlideIndex = swiper.realIndex; //현재 슬라이드 인덱스 구함
-  const activeSlide = swiper.slides[activeSlideIndex]; //모든 슬라이드에서 현재 인덱스 찾음
-  const bar = activeSlide.querySelector(".bar"); //현재 슬라이드에서 bar요소 찾음
+      const activeSlide = swiper.slides[activeSlideIndex]; //모든 슬라이드에서 현재 인덱스 찾음
+      const bar = activeSlide.querySelector(".bar"); //현재 슬라이드에서 bar요소 찾음
   challengeArray.forEach((el) => {
     //전체 배열 반복문으로 bar의 id값과 배열 seq값 동일한 것만 스타일 적용
     if (el.seq == bar.id) {
       bar.style.strokeDashoffset = el.offset;
     }
   });
-};
+}
+
 
 //사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
 spendAmountBtn.addEventListener("click", () => {
