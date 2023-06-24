@@ -70,13 +70,15 @@ section.challenge_set {display: none;overflow: auto }
 
 /* swiper*/
 .swiper{padding-bottom: 30px; cursor: pointer;}
-.challenge_wrap{}
-.challenge_inner{padding:10px;background: #fff;text-align: center;}
+.challenge_inner{padding:10px;background: #fff;display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;}
 .swiper-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{background-color:var(--main-purple)}
 
 .challenge_info{position:relative;background: #fff;
   box-shadow: var(--main-box);
-  border-radius: 8px; padding: 10px; margin-bottom: 30px;
+  border-radius: 8px; padding: 10px; margin-bottom: 30px;width: 90%;
 }
 .challenge_info > p:nth-of-type(1){font-size: 13px;font-weight: bold;}
 .info_dday{font-weight: 600;

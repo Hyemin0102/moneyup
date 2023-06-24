@@ -215,6 +215,7 @@ let slideActive;
 
 //전체 금액에서 잔여 금액 계산 함수
 let totalSpendPercentage;
+let spendAmountSum;
 
 const remainingAmountCalc = () => {
   slideActive = document.querySelector(".swiper-slide-active");
@@ -234,18 +235,22 @@ const remainingAmountCalc = () => {
         spendAmount: spendAmountValue,
         spendDate: spendDate,
       };
+
+
+
       if (el.userSpendList == "") {
         //사용금액이 비어있는 경우 로컬에 배열 저장
         el.userSpendList = [spendItem];
       } else {
         //사용 금액있는 경우 기존 배열 전체 가져와서 현재 사용 금액 추가 저장
-        el.userSpendList = [...el.userSpendList, spendItem];
+          el.userSpendList = [...el.userSpendList, spendItem];
       }
+    
       let spendAmountArr = el.userSpendList.map((item) => item.spendAmount);
       //spendAmount 값만 출력해서 새로운 배열 생성
 
       let spendAmountArrNum = spendAmountArr.map(Number);
-      let spendAmountSum = spendAmountArrNum.reduce((a, b) => a + b); //사용 금액 합계
+      spendAmountSum = spendAmountArrNum.reduce((a, b) => a + b); //사용 금액 합계
 
       el.remainingAmount = amountValue - spendAmountSum; //잔여 금액
 
@@ -288,7 +293,6 @@ const barOffset = (setTime) => {
     if (el.seq == bar.id) {
       const targetPercentage = 100 - (el.remainingAmount / el.amount.replace(/,/g, "")) * 100; // 목표 퍼센트;
       //let currentPercentage = startPercentage; // 현재 퍼센트 초기값으로 넣어줌 
-      console.log('targetPercentage',targetPercentage);
 
       if(!isNaN(targetPercentage)){ //targetPercentage 있는 경우만
 
@@ -428,6 +432,7 @@ headerList.addEventListener("click", function () {
             if (!el.userSpendList || el.userSpendList.length === 0) {
               alert("사용내역이 없습니다.");
             } else {
+              console.log('el.remainingAmount',el.remainingAmount)
               let spendAmountList = []; //사용한 금액 목록
               let spendDateList = []; //사용한 날짜 목록
               let spendItemList = []; //사용한 내역 목록
@@ -457,6 +462,7 @@ headerList.addEventListener("click", function () {
                 `;
                 detailInner.append(createDiv);
               }
+              
               challengeDetailBox.style.left = "0%";
               const DetailBoxClose =
                 document.querySelector(".detail_close_btn");
