@@ -78,7 +78,7 @@ section.challenge_set {display: none;overflow: auto }
 
 .challenge_info{position:relative;background: #fff;
   box-shadow: var(--main-box);
-  border-radius: 8px; padding: 10px; margin-bottom: 30px;width: 90%;
+  border-radius: 8px; padding: 10px; margin-bottom: 30px;width: 100%;
 }
 .challenge_info > p:nth-of-type(1){font-size: 13px;font-weight: bold;}
 .info_dday{font-weight: 600;
