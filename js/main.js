@@ -249,12 +249,9 @@ const remainingAmountCalc = () => {
 
       let remainingPercentage = (el.remainingAmount / amountValue) * 100; //잔여금액 퍼센트
       let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
-      let strokeDashOffsetPercentage = (totalSpendPercentage / 100) * 0.9 + 0.1; //사용퍼센트를 0.1~1까지 변경
-      let strokeDashOffsetCalc = `calc(720 - (720 * ${
-        1 - strokeDashOffsetPercentage
-      }))`;
+      let backgroundGradient = `conic-gradient(#fff 0% ${totalSpendPercentage}%, var(--main-blue) ${totalSpendPercentage}% 100%)`
 
-      el.offset = strokeDashOffsetCalc;
+      el.offset = backgroundGradient
       curAmount = document.querySelector(".swiper-slide-active .cur_amount");
 
       if (el.remainingAmount >= 0) {
@@ -268,7 +265,7 @@ const remainingAmountCalc = () => {
       } else { //잔액이 0보다 작으면
         alert("잔여 금액이 부족합니다.");
         el.remainingAmount = 0;
-        el.offset = 'calc(720 - (720 *0)';
+        el.offset = 100;
         save();
         curAmount.innerHTML = "0원";
         barOffset();
@@ -279,12 +276,13 @@ const remainingAmountCalc = () => {
 
 const barOffset=()=>{
   const activeSlideIndex = swiper.realIndex; //현재 슬라이드 인덱스 구함
-      const activeSlide = swiper.slides[activeSlideIndex]; //모든 슬라이드에서 현재 인덱스 찾음
-      const bar = activeSlide.querySelector(".bar"); //현재 슬라이드에서 bar요소 찾음
-  challengeArray.forEach((el) => {
-    //전체 배열 반복문으로 bar의 id값과 배열 seq값 동일한 것만 스타일 적용
-    if (el.seq == bar.id) {
-      bar.style.strokeDashoffset = el.offset;
+  const activeSlide = swiper.slides[activeSlideIndex]; //모든 슬라이드에서 현재 인덱스 찾음
+  const bar = activeSlide.querySelector(".bar"); //현재 슬라이드에서 bar요소 찾음
+
+challengeArray.forEach((el) => {
+//전체 배열 반복문으로 bar의 id값과 배열 seq값 동일한 것만 스타일 적용
+if (el.seq == bar.id) {
+  bar.style.background = el.offset;
     }
   });
 }
@@ -327,7 +325,29 @@ const createChallenge = () => {
       <p class="info_dday">챌린지 종료까지<span class="calc_dday">${result.toString()}일</span>남았어요</p>
       <div class="progress">진행중</div>
     </div>
-    <div class="challenge_detail">
+    <div class="pie-chart bar" id=${seqNum}>
+                      <div class="center">
+                        <div class="circle_number">
+                          <div class="cur_amount">${el.remainingAmount.toLocaleString()}원</div>
+                          <div class="pre_amount">￦${el.amount}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    </div>
+    `;
+    challengeWrap.prepend(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
+
+    $("#datepicker_start").datepicker("setDate", "");
+    $("#datepicker_end").datepicker("setDate", "");
+
+    swiper.update(); // 슬라이드 요소 업데이트
+    selectAmount.value = ""; //input value 초기화
+  });
+};
+
+
+{/* <div class="challenge_detail">
       <div class="challenge_circle">
         <div class="circle_outer">
           <div class="circle_inner">
@@ -346,18 +366,7 @@ const createChallenge = () => {
           </defs>
           <circle  id=${seqNum} class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
         </svg>
-      </div>
-    </div>
-    `;
-    challengeWrap.prepend(challengeInner); //append가 아닌 appendChild로 하나씩 새로 추가
-
-    $("#datepicker_start").datepicker("setDate", "");
-    $("#datepicker_end").datepicker("setDate", "");
-
-    swiper.update(); // 슬라이드 요소 업데이트
-    selectAmount.value = ""; //input value 초기화
-  });
-};
+      </div> */}
 
 //페이지 새로 고침 시
 window.addEventListener("load", () => {
