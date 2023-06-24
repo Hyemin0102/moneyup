@@ -214,6 +214,8 @@ let curAmount;
 let slideActive;
 
 //전체 금액에서 잔여 금액 계산 함수
+let totalSpendPercentage;
+
 const remainingAmountCalc = () => {
   slideActive = document.querySelector(".swiper-slide-active");
   let seqActive = slideActive.dataset.seq; //현재 active slide의 seq 번호
@@ -248,7 +250,7 @@ const remainingAmountCalc = () => {
       el.remainingAmount = amountValue - spendAmountSum; //잔여 금액
 
       let remainingPercentage = (el.remainingAmount / amountValue) * 100; //잔여금액 퍼센트
-      let totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
+      totalSpendPercentage = 100 - remainingPercentage; //총 사용금액 퍼센트
       let backgroundGradient = `conic-gradient(#fff 0% ${totalSpendPercentage}%, var(--main-blue) ${totalSpendPercentage}% 100%)`
 
       el.offset = backgroundGradient
@@ -258,34 +260,53 @@ const remainingAmountCalc = () => {
         //잔액이 0보다 크거나 같으면
         save();
         curAmount.innerHTML = `${el.remainingAmount.toLocaleString()}원`;
-        barOffset();
+        barOffset(20);
         if(el.remainingAmount == 0){
           alert("챌린지 금액을 모두 사용하셨습니다. 새로운 챌린지를 등록해주세요.");
         }
       } else { //잔액이 0보다 작으면
         alert("잔여 금액이 부족합니다.");
         el.remainingAmount = 0;
-        el.offset = 100;
+        el.offset =  `conic-gradient(#fff 0% 100%)`;
         save();
         curAmount.innerHTML = "0원";
-        barOffset();
+        barOffset(20);
       }
     }
   });
 };
 
-const barOffset=()=>{
-  const activeSlideIndex = swiper.realIndex; //현재 슬라이드 인덱스 구함
-  const activeSlide = swiper.slides[activeSlideIndex]; //모든 슬라이드에서 현재 인덱스 찾음
-  const bar = activeSlide.querySelector(".bar"); //현재 슬라이드에서 bar요소 찾음
+let currentPercentage  = 0;
+let interval;
 
-challengeArray.forEach((el) => {
-//전체 배열 반복문으로 bar의 id값과 배열 seq값 동일한 것만 스타일 적용
-if (el.seq == bar.id) {
-  bar.style.background = el.offset;
+const barOffset = (setTime) => {
+  const activeSlideIndex = swiper.realIndex;
+  const activeSlide = swiper.slides[activeSlideIndex];
+  const bar = activeSlide.querySelector(".bar");
+
+  challengeArray.forEach((el) => {
+    if (el.seq == bar.id) {
+      const targetPercentage = 100 - (el.remainingAmount / el.amount.replace(/,/g, "")) * 100; // 목표 퍼센트;
+      //let currentPercentage = startPercentage; // 현재 퍼센트 초기값으로 넣어줌 
+      console.log('targetPercentage',targetPercentage);
+
+      if(!isNaN(targetPercentage)){ //targetPercentage 있는 경우만
+
+        clearInterval(interval); //interval 함수 클리어
+
+        interval = setInterval(() => {
+          if (currentPercentage >= targetPercentage) {
+            clearInterval(interval); // 목표 퍼센트에 도달하면 setInterval 종료
+          } else {
+            currentPercentage += 1;
+          }
+  
+          bar.style.background = `conic-gradient(#fff 0% ${currentPercentage}%, var(--main-blue) ${currentPercentage}% 100%)`;
+        }, setTime); // 갱신 속도 (조절 가능)
+      }    
     }
   });
-}
+};
 
 
 //사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
@@ -347,27 +368,6 @@ const createChallenge = () => {
 };
 
 
-{/* <div class="challenge_detail">
-      <div class="challenge_circle">
-        <div class="circle_outer">
-          <div class="circle_inner">
-            <div class="circle_number">
-              <div class="cur_amount">${el.remainingAmount.toLocaleString()}원</div>
-              <div class="pre_amount">￦${el.amount}</div>
-            </div>
-          </div>
-        </div>
-        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="250px" height="250px">
-          <defs>
-            <linearGradient id="GradientColor" gradientUnits="objectBoundingBox" x1="0" y1="1" x2="0" y2="0">
-                <stop offset="0%" stop-color="rgb(255, 216, 204)" />
-                <stop offset="100%" stop-color="rgb(211, 225, 252)" />
-            </linearGradient>
-          </defs>
-          <circle  id=${seqNum} class="bar" cx="125" cy="125" r="113" stroke-linecap="round" />
-        </svg>
-      </div> */}
-
 //페이지 새로 고침 시
 window.addEventListener("load", () => {
   if (challengeArray.length > 0) {
@@ -375,7 +375,7 @@ window.addEventListener("load", () => {
     mainBox.style.display = "none";
     createChallenge(); //함수생성
     localSave(); //seq 숫자 연결되어 1씩 증가하도록
-    barOffset(); //bar style 유지
+    barOffset(10); //bar style 유지
   } else {
     mainChallenge.style.display = "none";
     mainBox.style.display = "flex";
@@ -383,7 +383,8 @@ window.addEventListener("load", () => {
 });
 
 swiper.on("slideChange", function () {
-  barOffset();
+  currentPercentage  = 0;
+  barOffset(10);
 });
 
 //헤더 li 탭 클릭 시 화면
