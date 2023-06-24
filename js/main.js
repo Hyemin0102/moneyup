@@ -313,6 +313,7 @@ const barOffset = (setTime) => {
 };
 
 
+
 //사용내역 추가 클릭 시 원래 금액에서 입력 금액만큼 빠져야함
 spendAmountBtn.addEventListener("click", () => {
   if (spendCont.value.trim() === "" || spendAmount.value.trim() === "") {
@@ -462,7 +463,7 @@ headerList.addEventListener("click", function () {
                 `;
                 detailInner.append(createDiv);
               }
-              
+
               challengeDetailBox.style.left = "0%";
               const DetailBoxClose =
                 document.querySelector(".detail_close_btn");

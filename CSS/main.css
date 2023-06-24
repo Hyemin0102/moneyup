@@ -108,23 +108,6 @@ section.challenge_set {display: none;overflow: auto }
     box-shadow:var(--main-box)
     ;}
 
-
-  /* circle{
-    fill: none; 
-    stroke: url(#GradientColor);
-    stroke-width: 25px; 
-    stroke-dasharray: 720;
-    stroke-dashoffset: calc(720 - (720 * 1));
-    transition: 1s; 
-  }
-  
-  svg{
-    position: absolute; top: 0; left: 0;
-  } */
-
-
-  /*******************/
-
   .pie-chart {
     position: relative;
     display:inline-block;
@@ -145,32 +128,11 @@ section.challenge_set {display: none;overflow: auto }
     transform: translate(-50%, -50%);
     box-shadow: var(--main-box);
   }
-
-  @keyframes barAnimation {
-    from {
-      background: conic-gradient(#fff 0% 0%, var(--main-blue) 0% 0% 100%);
-    }
-    to {
-      background: conic-gradient(#fff 0% 100%, var(--main-blue) 100% 100%);
-    }
-  }
-  
-
   .circle_number{
     display: flex; flex-direction:column; align-items: center; gap:20px; justify-content: center;width: 150px; height: 150px; border-radius: 50%;box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.1), 0px 0px 10px -1px rgba(0,0,0,0.1);text-align: center;margin: auto;
   }
   .circle_number>div:nth-child(1){font-weight: bold;}
   .circle_number>div:nth-child(2){box-shadow: var(--main-box); font-size: 12px; padding:5px 8px; border-radius: 8px;}
-
-
-
-
-
-
-
-  /*******************/
-
-
 
   .spend_btn{box-shadow: none;margin: 20px auto 30px auto;}
   .spend_btn i {font-size: 2.5rem;box-shadow: var(--main-box);border-radius: 50%;}
@@ -187,18 +149,6 @@ box-shadow: 0 0 10px 0 rgba(0,0,0,0.2);height: 100%;display: inline-block;paddin
   .close_btn i {color:gray;font-size: 1.5rem;}
       
 
-/*   .circle_outer{height: 250px; width: 250px; border-radius: 50%; padding:25px;
-    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
-    -6px -6px 10px -1px rgba(255,255,255,0.7);}
-  .circle_inner{
-    display: flex; align-items: center; justify-content: center;
-    height: 200px; width:200px;border-radius: 50%; 
-    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2),
-                inset -4px -4px 6px -1px rgba(255,255,255,0.7),
-                -0.5px -0.5px 0px rgba(255,255,255,1),
-                0.5px 0.5px 0px rgba(0,0,0,0.15),
-                0px 12px 10px -10px rgba(0,0,0,0.05)
-    ;} */
 /*챌린지 기간 추가 */
 .challenge_date, .challenge_amount{ position:absolute; z-index:10; width:0; overflow: hidden; top:0; left:0; height:100vh; background-color: #fff; display: flex;justify-content: center; padding-top:10%; transition: all 0.3s;}
 .challenge_date.calendar_on {width:100%; overflow: auto;}
