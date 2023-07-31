@@ -10,7 +10,7 @@
     "sizes": "512x512",
     "type": "image/png"
   }],
-  "start_url": "https://hyemin0102.github.io/moneyup",
+  "start_url": "https://hyemin0102.github.io/moneyup/",
   "display": "standalone",
   "background_color": "#9287FF",
   "theme_color": "#9287FF"
